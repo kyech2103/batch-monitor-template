@@ -1,0 +1,3654 @@
+[
+  {
+    "name": "scenario_1_complex_pipeline",
+    "params": {
+      "batches": [
+        {
+          "lotNumber": "LOT-2610-01",
+          "schedule": {
+            "B": {
+              "startCode": "10200900",
+              "endCode": "10201700"
+            },
+            "C": {
+              "startCode": "10210900",
+              "endCode": "10221700"
+            },
+            "D": {
+              "startCode": "10230900",
+              "endCode": "10231700"
+            },
+            "E": {
+              "startCode": "10260900"
+            }
+          }
+        },
+        {
+          "lotNumber": "LOT-2610-02",
+          "schedule": {
+            "B": {
+              "startCode": "10220900",
+              "endCode": "10221700"
+            },
+            "C": {
+              "startCode": "10230900",
+              "endCode": "10241000"
+            },
+            "E": {
+              "startCode": "10271030"
+            }
+          }
+        }
+      ],
+      "managers": {
+        "p1_a": "홍길동",
+        "p1_b": "김철수",
+        "p2_a": "이영희",
+        "p2_b": "박찬호",
+        "p2_c": "최민수",
+        "p3_a": "정우성",
+        "p3_b": "강동원",
+        "p4_a": "송강호",
+        "p4_b": "이병헌",
+        "stage5": "유재석",
+        "pk_a": "하하",
+        "pk_b": "노홍철"
+      },
+      "holidaySet": [
+        "2026-01-01",
+        "2026-02-16",
+        "2026-02-17",
+        "2026-02-18",
+        "2026-03-02",
+        "2026-05-01",
+        "2026-05-05",
+        "2026-05-25",
+        "2026-06-03",
+        "2026-06-06",
+        "2026-08-15",
+        "2026-08-17",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-26",
+        "2026-10-03",
+        "2026-10-05",
+        "2026-10-09",
+        "2026-12-25",
+        "2027-01-01",
+        "2027-02-06",
+        "2027-02-07",
+        "2027-02-08",
+        "2027-02-09",
+        "2027-03-01",
+        "2027-05-01",
+        "2027-05-05",
+        "2027-05-13",
+        "2027-06-06",
+        "2027-08-15",
+        "2027-08-16",
+        "2027-09-14",
+        "2027-09-15",
+        "2027-09-16",
+        "2027-10-03",
+        "2027-10-04",
+        "2027-10-09",
+        "2027-10-11",
+        "2027-12-25",
+        "2027-12-27"
+      ],
+      "today": "2026-10-14"
+    },
+    "output": {
+      "tasks": [
+        {
+          "rule_id": "CLEANING",
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "process_code": "CLEAN",
+          "title": "주간 청소",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "roles": [
+            "p1_a",
+            "p1_b",
+            "p2_a",
+            "p2_b",
+            "p2_c",
+            "p3_a",
+            "p3_b",
+            "p4_a",
+            "p4_b",
+            "stage5",
+            "pk_a",
+            "pk_b"
+          ],
+          "task_key": "CLEANING|2026-10-16|15:00|"
+        },
+        {
+          "rule_id": "B-PREP",
+          "target_date": "2026-10-19",
+          "target_time": "10:00",
+          "process_code": "B",
+          "title": "공정2 설비 예약",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "roles": [
+            "p2_a"
+          ],
+          "task_key": "B-PREP|2026-10-19|10:00|LOT-2610-01"
+        },
+        {
+          "rule_id": "B-1",
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "process_code": "B",
+          "title": "공정2 설비 조립",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "roles": [
+            "p2_b",
+            "p2_c"
+          ],
+          "task_key": "B-1|2026-10-20|09:00|LOT-2610-01"
+        },
+        {
+          "rule_id": "B-2",
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "process_code": "B",
+          "title": "공정2 시작",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "roles": [
+            "p1_a",
+            "p1_b",
+            "p2_a",
+            "p2_b",
+            "p2_c",
+            "p3_a",
+            "p3_b",
+            "p4_a",
+            "p4_b",
+            "stage5",
+            "pk_a",
+            "pk_b"
+          ],
+          "task_key": "B-2|2026-10-20|09:00|LOT-2610-01"
+        },
+        {
+          "rule_id": "PREP-WASH",
+          "target_date": "2026-10-21",
+          "target_time": "09:00",
+          "process_code": "B",
+          "title": "사용 부품 세척 마무리",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "roles": [
+            "p2_b",
+            "p2_c"
+          ],
+          "task_key": "PREP-WASH|2026-10-21|09:00|LOT-2610-01"
+        },
+        {
+          "rule_id": "C-1",
+          "target_date": "2026-10-21",
+          "target_time": "09:00",
+          "process_code": "C",
+          "title": "공정3 설비 점검",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "roles": [
+            "p3_a",
+            "p3_b"
+          ],
+          "task_key": "C-1|2026-10-21|09:00|LOT-2610-01"
+        },
+        {
+          "rule_id": "B-PREP",
+          "target_date": "2026-10-21",
+          "target_time": "10:00",
+          "process_code": "B",
+          "title": "공정2 설비 예약",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "roles": [
+            "p2_a"
+          ],
+          "task_key": "B-PREP|2026-10-21|10:00|LOT-2610-02"
+        },
+        {
+          "rule_id": "B-1",
+          "target_date": "2026-10-22",
+          "target_time": "09:00",
+          "process_code": "B",
+          "title": "공정2 설비 조립",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "roles": [
+            "p2_b",
+            "p2_c"
+          ],
+          "task_key": "B-1|2026-10-22|09:00|LOT-2610-02"
+        },
+        {
+          "rule_id": "B-2",
+          "target_date": "2026-10-22",
+          "target_time": "09:00",
+          "process_code": "B",
+          "title": "공정2 시작",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "roles": [
+            "p1_a",
+            "p1_b",
+            "p2_a",
+            "p2_b",
+            "p2_c",
+            "p3_a",
+            "p3_b",
+            "p4_a",
+            "p4_b",
+            "stage5",
+            "pk_a",
+            "pk_b"
+          ],
+          "task_key": "B-2|2026-10-22|09:00|LOT-2610-02"
+        },
+        {
+          "rule_id": "C-END",
+          "target_date": "2026-10-22",
+          "target_time": "17:00",
+          "process_code": "C",
+          "title": "공정3 완료품 이동",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "roles": [
+            "p3_a",
+            "p3_b"
+          ],
+          "task_key": "C-END|2026-10-22|17:00|LOT-2610-01"
+        },
+        {
+          "rule_id": "PREP-WASH",
+          "target_date": "2026-10-23",
+          "target_time": "09:00",
+          "process_code": "B",
+          "title": "사용 부품 세척 마무리",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "roles": [
+            "p2_b",
+            "p2_c"
+          ],
+          "task_key": "PREP-WASH|2026-10-23|09:00|LOT-2610-02"
+        },
+        {
+          "rule_id": "C-1",
+          "target_date": "2026-10-23",
+          "target_time": "09:00",
+          "process_code": "C",
+          "title": "공정3 설비 점검",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "roles": [
+            "p3_a",
+            "p3_b"
+          ],
+          "task_key": "C-1|2026-10-23|09:00|LOT-2610-02"
+        },
+        {
+          "rule_id": "D-1",
+          "target_date": "2026-10-23",
+          "target_time": "09:00",
+          "process_code": "D",
+          "title": "공정4 준비",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "roles": [
+            "p4_a",
+            "p4_b"
+          ],
+          "task_key": "D-1|2026-10-23|09:00|LOT-2610-01"
+        },
+        {
+          "rule_id": "CLEANING",
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "process_code": "CLEAN",
+          "title": "주간 청소",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "roles": [
+            "p1_a",
+            "p1_b",
+            "p2_a",
+            "p2_b",
+            "p2_c",
+            "p3_a",
+            "p3_b",
+            "p4_a",
+            "p4_b",
+            "stage5",
+            "pk_a",
+            "pk_b"
+          ],
+          "task_key": "CLEANING|2026-10-23|15:00|"
+        },
+        {
+          "rule_id": "D-END",
+          "target_date": "2026-10-23",
+          "target_time": "17:00",
+          "process_code": "D",
+          "title": "공정4 완료품 이동",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "roles": [
+            "p4_a",
+            "p4_b"
+          ],
+          "task_key": "D-END|2026-10-23|17:00|LOT-2610-01"
+        },
+        {
+          "rule_id": "C-END",
+          "target_date": "2026-10-26",
+          "target_time": "09:00",
+          "process_code": "C",
+          "title": "공정3 완료품 이동",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "roles": [
+            "p3_a",
+            "p3_b"
+          ],
+          "task_key": "C-END|2026-10-26|09:00|LOT-2610-02"
+        },
+        {
+          "rule_id": "E-2",
+          "target_date": "2026-10-26",
+          "target_time": "09:00",
+          "process_code": "E",
+          "title": "공정5 시작",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "roles": [
+            "stage5"
+          ],
+          "task_key": "E-2|2026-10-26|09:00|LOT-2610-01"
+        },
+        {
+          "rule_id": "E-2",
+          "target_date": "2026-10-27",
+          "target_time": "10:30",
+          "process_code": "E",
+          "title": "공정5 시작",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "roles": [
+            "stage5"
+          ],
+          "task_key": "E-2|2026-10-27|10:30|LOT-2610-02"
+        }
+      ],
+      "rows": [
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "p1_a",
+          "worker_name": "홍길동",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "p2_a",
+          "worker_name": "이영희",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "p2_b",
+          "worker_name": "박찬호",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "p2_c",
+          "worker_name": "최민수",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "p3_a",
+          "worker_name": "정우성",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "p3_b",
+          "worker_name": "강동원",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "p4_a",
+          "worker_name": "송강호",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "p4_b",
+          "worker_name": "이병헌",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "stage5",
+          "worker_name": "유재석",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "pk_a",
+          "worker_name": "하하",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "pk_b",
+          "worker_name": "노홍철",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-19",
+          "target_time": "10:00",
+          "role_key": "p2_a",
+          "worker_name": "이영희",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "B",
+          "rule_id": "B-PREP",
+          "task_key": "B-PREP|2026-10-19|10:00|LOT-2610-01",
+          "title": "공정2 설비 예약"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "role_key": "p2_b",
+          "worker_name": "박찬호",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "B",
+          "rule_id": "B-1",
+          "task_key": "B-1|2026-10-20|09:00|LOT-2610-01",
+          "title": "공정2 설비 조립"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "role_key": "p2_c",
+          "worker_name": "최민수",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "B",
+          "rule_id": "B-1",
+          "task_key": "B-1|2026-10-20|09:00|LOT-2610-01",
+          "title": "공정2 설비 조립"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "role_key": "p1_a",
+          "worker_name": "홍길동",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-20|09:00|LOT-2610-01",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-20|09:00|LOT-2610-01",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "role_key": "p2_a",
+          "worker_name": "이영희",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-20|09:00|LOT-2610-01",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "role_key": "p2_b",
+          "worker_name": "박찬호",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-20|09:00|LOT-2610-01",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "role_key": "p2_c",
+          "worker_name": "최민수",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-20|09:00|LOT-2610-01",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "role_key": "p3_a",
+          "worker_name": "정우성",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-20|09:00|LOT-2610-01",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "role_key": "p3_b",
+          "worker_name": "강동원",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-20|09:00|LOT-2610-01",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "role_key": "p4_a",
+          "worker_name": "송강호",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-20|09:00|LOT-2610-01",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "role_key": "p4_b",
+          "worker_name": "이병헌",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-20|09:00|LOT-2610-01",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "role_key": "stage5",
+          "worker_name": "유재석",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-20|09:00|LOT-2610-01",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "role_key": "pk_a",
+          "worker_name": "하하",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-20|09:00|LOT-2610-01",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "role_key": "pk_b",
+          "worker_name": "노홍철",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-20|09:00|LOT-2610-01",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-21",
+          "target_time": "09:00",
+          "role_key": "p2_b",
+          "worker_name": "박찬호",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "B",
+          "rule_id": "PREP-WASH",
+          "task_key": "PREP-WASH|2026-10-21|09:00|LOT-2610-01",
+          "title": "사용 부품 세척 마무리"
+        },
+        {
+          "target_date": "2026-10-21",
+          "target_time": "09:00",
+          "role_key": "p2_c",
+          "worker_name": "최민수",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "B",
+          "rule_id": "PREP-WASH",
+          "task_key": "PREP-WASH|2026-10-21|09:00|LOT-2610-01",
+          "title": "사용 부품 세척 마무리"
+        },
+        {
+          "target_date": "2026-10-21",
+          "target_time": "09:00",
+          "role_key": "p3_a",
+          "worker_name": "정우성",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "C",
+          "rule_id": "C-1",
+          "task_key": "C-1|2026-10-21|09:00|LOT-2610-01",
+          "title": "공정3 설비 점검"
+        },
+        {
+          "target_date": "2026-10-21",
+          "target_time": "09:00",
+          "role_key": "p3_b",
+          "worker_name": "강동원",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "C",
+          "rule_id": "C-1",
+          "task_key": "C-1|2026-10-21|09:00|LOT-2610-01",
+          "title": "공정3 설비 점검"
+        },
+        {
+          "target_date": "2026-10-21",
+          "target_time": "10:00",
+          "role_key": "p2_a",
+          "worker_name": "이영희",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "B",
+          "rule_id": "B-PREP",
+          "task_key": "B-PREP|2026-10-21|10:00|LOT-2610-02",
+          "title": "공정2 설비 예약"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "09:00",
+          "role_key": "p2_b",
+          "worker_name": "박찬호",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "B",
+          "rule_id": "B-1",
+          "task_key": "B-1|2026-10-22|09:00|LOT-2610-02",
+          "title": "공정2 설비 조립"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "09:00",
+          "role_key": "p2_c",
+          "worker_name": "최민수",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "B",
+          "rule_id": "B-1",
+          "task_key": "B-1|2026-10-22|09:00|LOT-2610-02",
+          "title": "공정2 설비 조립"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "09:00",
+          "role_key": "p1_a",
+          "worker_name": "홍길동",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-22|09:00|LOT-2610-02",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "09:00",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-22|09:00|LOT-2610-02",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "09:00",
+          "role_key": "p2_a",
+          "worker_name": "이영희",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-22|09:00|LOT-2610-02",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "09:00",
+          "role_key": "p2_b",
+          "worker_name": "박찬호",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-22|09:00|LOT-2610-02",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "09:00",
+          "role_key": "p2_c",
+          "worker_name": "최민수",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-22|09:00|LOT-2610-02",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "09:00",
+          "role_key": "p3_a",
+          "worker_name": "정우성",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-22|09:00|LOT-2610-02",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "09:00",
+          "role_key": "p3_b",
+          "worker_name": "강동원",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-22|09:00|LOT-2610-02",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "09:00",
+          "role_key": "p4_a",
+          "worker_name": "송강호",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-22|09:00|LOT-2610-02",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "09:00",
+          "role_key": "p4_b",
+          "worker_name": "이병헌",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-22|09:00|LOT-2610-02",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "09:00",
+          "role_key": "stage5",
+          "worker_name": "유재석",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-22|09:00|LOT-2610-02",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "09:00",
+          "role_key": "pk_a",
+          "worker_name": "하하",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-22|09:00|LOT-2610-02",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "09:00",
+          "role_key": "pk_b",
+          "worker_name": "노홍철",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "B",
+          "rule_id": "B-2",
+          "task_key": "B-2|2026-10-22|09:00|LOT-2610-02",
+          "title": "공정2 시작"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "17:00",
+          "role_key": "p3_a",
+          "worker_name": "정우성",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "C",
+          "rule_id": "C-END",
+          "task_key": "C-END|2026-10-22|17:00|LOT-2610-01",
+          "title": "공정3 완료품 이동"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "17:00",
+          "role_key": "p3_b",
+          "worker_name": "강동원",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "C",
+          "rule_id": "C-END",
+          "task_key": "C-END|2026-10-22|17:00|LOT-2610-01",
+          "title": "공정3 완료품 이동"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "09:00",
+          "role_key": "p2_b",
+          "worker_name": "박찬호",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "B",
+          "rule_id": "PREP-WASH",
+          "task_key": "PREP-WASH|2026-10-23|09:00|LOT-2610-02",
+          "title": "사용 부품 세척 마무리"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "09:00",
+          "role_key": "p2_c",
+          "worker_name": "최민수",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "B",
+          "rule_id": "PREP-WASH",
+          "task_key": "PREP-WASH|2026-10-23|09:00|LOT-2610-02",
+          "title": "사용 부품 세척 마무리"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "09:00",
+          "role_key": "p3_a",
+          "worker_name": "정우성",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "C",
+          "rule_id": "C-1",
+          "task_key": "C-1|2026-10-23|09:00|LOT-2610-02",
+          "title": "공정3 설비 점검"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "09:00",
+          "role_key": "p3_b",
+          "worker_name": "강동원",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "C",
+          "rule_id": "C-1",
+          "task_key": "C-1|2026-10-23|09:00|LOT-2610-02",
+          "title": "공정3 설비 점검"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "09:00",
+          "role_key": "p4_a",
+          "worker_name": "송강호",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "D",
+          "rule_id": "D-1",
+          "task_key": "D-1|2026-10-23|09:00|LOT-2610-01",
+          "title": "공정4 준비"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "09:00",
+          "role_key": "p4_b",
+          "worker_name": "이병헌",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "D",
+          "rule_id": "D-1",
+          "task_key": "D-1|2026-10-23|09:00|LOT-2610-01",
+          "title": "공정4 준비"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p1_a",
+          "worker_name": "홍길동",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p2_a",
+          "worker_name": "이영희",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p2_b",
+          "worker_name": "박찬호",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p2_c",
+          "worker_name": "최민수",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p3_a",
+          "worker_name": "정우성",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p3_b",
+          "worker_name": "강동원",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p4_a",
+          "worker_name": "송강호",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p4_b",
+          "worker_name": "이병헌",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "stage5",
+          "worker_name": "유재석",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "pk_a",
+          "worker_name": "하하",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "pk_b",
+          "worker_name": "노홍철",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "17:00",
+          "role_key": "p4_a",
+          "worker_name": "송강호",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "D",
+          "rule_id": "D-END",
+          "task_key": "D-END|2026-10-23|17:00|LOT-2610-01",
+          "title": "공정4 완료품 이동"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "17:00",
+          "role_key": "p4_b",
+          "worker_name": "이병헌",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "D",
+          "rule_id": "D-END",
+          "task_key": "D-END|2026-10-23|17:00|LOT-2610-01",
+          "title": "공정4 완료품 이동"
+        },
+        {
+          "target_date": "2026-10-26",
+          "target_time": "09:00",
+          "role_key": "p3_a",
+          "worker_name": "정우성",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "C",
+          "rule_id": "C-END",
+          "task_key": "C-END|2026-10-26|09:00|LOT-2610-02",
+          "title": "공정3 완료품 이동"
+        },
+        {
+          "target_date": "2026-10-26",
+          "target_time": "09:00",
+          "role_key": "p3_b",
+          "worker_name": "강동원",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "C",
+          "rule_id": "C-END",
+          "task_key": "C-END|2026-10-26|09:00|LOT-2610-02",
+          "title": "공정3 완료품 이동"
+        },
+        {
+          "target_date": "2026-10-26",
+          "target_time": "09:00",
+          "role_key": "stage5",
+          "worker_name": "유재석",
+          "lot_id": "LOT-2610-01",
+          "lot_ids": [
+            "LOT-2610-01"
+          ],
+          "process_code": "E",
+          "rule_id": "E-2",
+          "task_key": "E-2|2026-10-26|09:00|LOT-2610-01",
+          "title": "공정5 시작"
+        },
+        {
+          "target_date": "2026-10-27",
+          "target_time": "10:30",
+          "role_key": "stage5",
+          "worker_name": "유재석",
+          "lot_id": "LOT-2610-02",
+          "lot_ids": [
+            "LOT-2610-02"
+          ],
+          "process_code": "E",
+          "rule_id": "E-2",
+          "task_key": "E-2|2026-10-27|10:30|LOT-2610-02",
+          "title": "공정5 시작"
+        }
+      ],
+      "warnings": []
+    }
+  },
+  {
+    "name": "scenario_2_holiday_and_prep",
+    "params": {
+      "batches": [
+        {
+          "lotNumber": "LOT-HOLIDAY-01",
+          "schedule": {
+            "A": {
+              "startCode": "10090900"
+            }
+          }
+        },
+        {
+          "lotNumber": "LOT-SAT-01",
+          "schedule": {
+            "E": {
+              "startCode": "10101030"
+            }
+          }
+        },
+        {
+          "lotNumber": "LOT-NEXT-01",
+          "schedule": {
+            "A": {
+              "startCode": "10200900"
+            }
+          }
+        },
+        {
+          "lotNumber": "LOT-NEXT-02",
+          "schedule": {
+            "A": {
+              "startCode": "10210900"
+            }
+          }
+        }
+      ],
+      "managers": {
+        "p1_a": "홍길동",
+        "p1_b": "김철수",
+        "p2_a": "이영희",
+        "p2_b": "박찬호",
+        "p2_c": "최민수",
+        "p3_a": "정우성",
+        "p3_b": "강동원",
+        "p4_a": "송강호",
+        "p4_b": "이병헌",
+        "stage5": "유재석",
+        "pk_a": "하하",
+        "pk_b": "노홍철"
+      },
+      "holidaySet": [
+        "2026-01-01",
+        "2026-02-16",
+        "2026-02-17",
+        "2026-02-18",
+        "2026-03-02",
+        "2026-05-01",
+        "2026-05-05",
+        "2026-05-25",
+        "2026-06-03",
+        "2026-06-06",
+        "2026-08-15",
+        "2026-08-17",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-26",
+        "2026-10-03",
+        "2026-10-05",
+        "2026-10-09",
+        "2026-12-25",
+        "2027-01-01",
+        "2027-02-06",
+        "2027-02-07",
+        "2027-02-08",
+        "2027-02-09",
+        "2027-03-01",
+        "2027-05-01",
+        "2027-05-05",
+        "2027-05-13",
+        "2027-06-06",
+        "2027-08-15",
+        "2027-08-16",
+        "2027-09-14",
+        "2027-09-15",
+        "2027-09-16",
+        "2027-10-03",
+        "2027-10-04",
+        "2027-10-09",
+        "2027-10-11",
+        "2027-12-25",
+        "2027-12-27"
+      ],
+      "today": "2026-10-14"
+    },
+    "output": {
+      "tasks": [
+        {
+          "rule_id": "A-1",
+          "target_date": "2026-10-12",
+          "target_time": "09:00",
+          "process_code": "A",
+          "title": "원료 계량",
+          "lot_id": "LOT-HOLIDAY-01",
+          "lot_ids": [
+            "LOT-HOLIDAY-01"
+          ],
+          "roles": [
+            "p1_b"
+          ],
+          "task_key": "A-1|2026-10-12|09:00|LOT-HOLIDAY-01"
+        },
+        {
+          "rule_id": "A-2",
+          "target_date": "2026-10-12",
+          "target_time": "09:00",
+          "process_code": "A",
+          "title": "공정1 준비 점검",
+          "lot_id": "LOT-HOLIDAY-01",
+          "lot_ids": [
+            "LOT-HOLIDAY-01"
+          ],
+          "roles": [
+            "p1_a",
+            "p1_b"
+          ],
+          "task_key": "A-2|2026-10-12|09:00|LOT-HOLIDAY-01"
+        },
+        {
+          "rule_id": "E-2",
+          "target_date": "2026-10-12",
+          "target_time": "09:00",
+          "process_code": "E",
+          "title": "공정5 시작",
+          "lot_id": "LOT-SAT-01",
+          "lot_ids": [
+            "LOT-SAT-01"
+          ],
+          "roles": [
+            "stage5"
+          ],
+          "task_key": "E-2|2026-10-12|09:00|LOT-SAT-01"
+        },
+        {
+          "rule_id": "PREP-MAT",
+          "target_date": "2026-10-16",
+          "target_time": "10:00",
+          "process_code": "PREP",
+          "title": "자재 수령 및 준비",
+          "lot_id": "LOT-NEXT-01, LOT-NEXT-02",
+          "lot_ids": [
+            "LOT-NEXT-01",
+            "LOT-NEXT-02"
+          ],
+          "roles": [
+            "p1_a",
+            "p1_b",
+            "p2_a",
+            "p2_b",
+            "p2_c",
+            "p3_a",
+            "p3_b",
+            "p4_a",
+            "p4_b",
+            "stage5",
+            "pk_a",
+            "pk_b"
+          ],
+          "task_key": "PREP-MAT|2026-10-16|10:00|LOT-NEXT-01,LOT-NEXT-02"
+        },
+        {
+          "rule_id": "CLEANING",
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "process_code": "CLEAN",
+          "title": "주간 청소",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "roles": [
+            "p1_a",
+            "p1_b",
+            "p2_a",
+            "p2_b",
+            "p2_c",
+            "p3_a",
+            "p3_b",
+            "p4_a",
+            "p4_b",
+            "stage5",
+            "pk_a",
+            "pk_b"
+          ],
+          "task_key": "CLEANING|2026-10-16|15:00|"
+        },
+        {
+          "rule_id": "A-1",
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "process_code": "A",
+          "title": "원료 계량",
+          "lot_id": "LOT-NEXT-01",
+          "lot_ids": [
+            "LOT-NEXT-01"
+          ],
+          "roles": [
+            "p1_b"
+          ],
+          "task_key": "A-1|2026-10-20|09:00|LOT-NEXT-01"
+        },
+        {
+          "rule_id": "A-2",
+          "target_date": "2026-10-20",
+          "target_time": "09:30",
+          "process_code": "A",
+          "title": "공정1 준비 점검",
+          "lot_id": "LOT-NEXT-01",
+          "lot_ids": [
+            "LOT-NEXT-01"
+          ],
+          "roles": [
+            "p1_a",
+            "p1_b"
+          ],
+          "task_key": "A-2|2026-10-20|09:30|LOT-NEXT-01"
+        },
+        {
+          "rule_id": "A-1",
+          "target_date": "2026-10-21",
+          "target_time": "09:00",
+          "process_code": "A",
+          "title": "원료 계량",
+          "lot_id": "LOT-NEXT-02",
+          "lot_ids": [
+            "LOT-NEXT-02"
+          ],
+          "roles": [
+            "p1_b"
+          ],
+          "task_key": "A-1|2026-10-21|09:00|LOT-NEXT-02"
+        },
+        {
+          "rule_id": "A-2",
+          "target_date": "2026-10-21",
+          "target_time": "09:30",
+          "process_code": "A",
+          "title": "공정1 준비 점검",
+          "lot_id": "LOT-NEXT-02",
+          "lot_ids": [
+            "LOT-NEXT-02"
+          ],
+          "roles": [
+            "p1_a",
+            "p1_b"
+          ],
+          "task_key": "A-2|2026-10-21|09:30|LOT-NEXT-02"
+        },
+        {
+          "rule_id": "CLEANING",
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "process_code": "CLEAN",
+          "title": "주간 청소",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "roles": [
+            "p1_a",
+            "p1_b",
+            "p2_a",
+            "p2_b",
+            "p2_c",
+            "p3_a",
+            "p3_b",
+            "p4_a",
+            "p4_b",
+            "stage5",
+            "pk_a",
+            "pk_b"
+          ],
+          "task_key": "CLEANING|2026-10-23|15:00|"
+        }
+      ],
+      "rows": [
+        {
+          "target_date": "2026-10-12",
+          "target_time": "09:00",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "LOT-HOLIDAY-01",
+          "lot_ids": [
+            "LOT-HOLIDAY-01"
+          ],
+          "process_code": "A",
+          "rule_id": "A-1",
+          "task_key": "A-1|2026-10-12|09:00|LOT-HOLIDAY-01",
+          "title": "원료 계량"
+        },
+        {
+          "target_date": "2026-10-12",
+          "target_time": "09:00",
+          "role_key": "p1_a",
+          "worker_name": "홍길동",
+          "lot_id": "LOT-HOLIDAY-01",
+          "lot_ids": [
+            "LOT-HOLIDAY-01"
+          ],
+          "process_code": "A",
+          "rule_id": "A-2",
+          "task_key": "A-2|2026-10-12|09:00|LOT-HOLIDAY-01",
+          "title": "공정1 준비 점검"
+        },
+        {
+          "target_date": "2026-10-12",
+          "target_time": "09:00",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "LOT-HOLIDAY-01",
+          "lot_ids": [
+            "LOT-HOLIDAY-01"
+          ],
+          "process_code": "A",
+          "rule_id": "A-2",
+          "task_key": "A-2|2026-10-12|09:00|LOT-HOLIDAY-01",
+          "title": "공정1 준비 점검"
+        },
+        {
+          "target_date": "2026-10-12",
+          "target_time": "09:00",
+          "role_key": "stage5",
+          "worker_name": "유재석",
+          "lot_id": "LOT-SAT-01",
+          "lot_ids": [
+            "LOT-SAT-01"
+          ],
+          "process_code": "E",
+          "rule_id": "E-2",
+          "task_key": "E-2|2026-10-12|09:00|LOT-SAT-01",
+          "title": "공정5 시작"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "10:00",
+          "role_key": "p1_a",
+          "worker_name": "홍길동",
+          "lot_id": "LOT-NEXT-01, LOT-NEXT-02",
+          "lot_ids": [
+            "LOT-NEXT-01",
+            "LOT-NEXT-02"
+          ],
+          "process_code": "PREP",
+          "rule_id": "PREP-MAT",
+          "task_key": "PREP-MAT|2026-10-16|10:00|LOT-NEXT-01,LOT-NEXT-02",
+          "title": "자재 수령 및 준비"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "10:00",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "LOT-NEXT-01, LOT-NEXT-02",
+          "lot_ids": [
+            "LOT-NEXT-01",
+            "LOT-NEXT-02"
+          ],
+          "process_code": "PREP",
+          "rule_id": "PREP-MAT",
+          "task_key": "PREP-MAT|2026-10-16|10:00|LOT-NEXT-01,LOT-NEXT-02",
+          "title": "자재 수령 및 준비"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "10:00",
+          "role_key": "p2_a",
+          "worker_name": "이영희",
+          "lot_id": "LOT-NEXT-01, LOT-NEXT-02",
+          "lot_ids": [
+            "LOT-NEXT-01",
+            "LOT-NEXT-02"
+          ],
+          "process_code": "PREP",
+          "rule_id": "PREP-MAT",
+          "task_key": "PREP-MAT|2026-10-16|10:00|LOT-NEXT-01,LOT-NEXT-02",
+          "title": "자재 수령 및 준비"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "10:00",
+          "role_key": "p2_b",
+          "worker_name": "박찬호",
+          "lot_id": "LOT-NEXT-01, LOT-NEXT-02",
+          "lot_ids": [
+            "LOT-NEXT-01",
+            "LOT-NEXT-02"
+          ],
+          "process_code": "PREP",
+          "rule_id": "PREP-MAT",
+          "task_key": "PREP-MAT|2026-10-16|10:00|LOT-NEXT-01,LOT-NEXT-02",
+          "title": "자재 수령 및 준비"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "10:00",
+          "role_key": "p2_c",
+          "worker_name": "최민수",
+          "lot_id": "LOT-NEXT-01, LOT-NEXT-02",
+          "lot_ids": [
+            "LOT-NEXT-01",
+            "LOT-NEXT-02"
+          ],
+          "process_code": "PREP",
+          "rule_id": "PREP-MAT",
+          "task_key": "PREP-MAT|2026-10-16|10:00|LOT-NEXT-01,LOT-NEXT-02",
+          "title": "자재 수령 및 준비"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "10:00",
+          "role_key": "p3_a",
+          "worker_name": "정우성",
+          "lot_id": "LOT-NEXT-01, LOT-NEXT-02",
+          "lot_ids": [
+            "LOT-NEXT-01",
+            "LOT-NEXT-02"
+          ],
+          "process_code": "PREP",
+          "rule_id": "PREP-MAT",
+          "task_key": "PREP-MAT|2026-10-16|10:00|LOT-NEXT-01,LOT-NEXT-02",
+          "title": "자재 수령 및 준비"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "10:00",
+          "role_key": "p3_b",
+          "worker_name": "강동원",
+          "lot_id": "LOT-NEXT-01, LOT-NEXT-02",
+          "lot_ids": [
+            "LOT-NEXT-01",
+            "LOT-NEXT-02"
+          ],
+          "process_code": "PREP",
+          "rule_id": "PREP-MAT",
+          "task_key": "PREP-MAT|2026-10-16|10:00|LOT-NEXT-01,LOT-NEXT-02",
+          "title": "자재 수령 및 준비"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "10:00",
+          "role_key": "p4_a",
+          "worker_name": "송강호",
+          "lot_id": "LOT-NEXT-01, LOT-NEXT-02",
+          "lot_ids": [
+            "LOT-NEXT-01",
+            "LOT-NEXT-02"
+          ],
+          "process_code": "PREP",
+          "rule_id": "PREP-MAT",
+          "task_key": "PREP-MAT|2026-10-16|10:00|LOT-NEXT-01,LOT-NEXT-02",
+          "title": "자재 수령 및 준비"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "10:00",
+          "role_key": "p4_b",
+          "worker_name": "이병헌",
+          "lot_id": "LOT-NEXT-01, LOT-NEXT-02",
+          "lot_ids": [
+            "LOT-NEXT-01",
+            "LOT-NEXT-02"
+          ],
+          "process_code": "PREP",
+          "rule_id": "PREP-MAT",
+          "task_key": "PREP-MAT|2026-10-16|10:00|LOT-NEXT-01,LOT-NEXT-02",
+          "title": "자재 수령 및 준비"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "10:00",
+          "role_key": "stage5",
+          "worker_name": "유재석",
+          "lot_id": "LOT-NEXT-01, LOT-NEXT-02",
+          "lot_ids": [
+            "LOT-NEXT-01",
+            "LOT-NEXT-02"
+          ],
+          "process_code": "PREP",
+          "rule_id": "PREP-MAT",
+          "task_key": "PREP-MAT|2026-10-16|10:00|LOT-NEXT-01,LOT-NEXT-02",
+          "title": "자재 수령 및 준비"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "10:00",
+          "role_key": "pk_a",
+          "worker_name": "하하",
+          "lot_id": "LOT-NEXT-01, LOT-NEXT-02",
+          "lot_ids": [
+            "LOT-NEXT-01",
+            "LOT-NEXT-02"
+          ],
+          "process_code": "PREP",
+          "rule_id": "PREP-MAT",
+          "task_key": "PREP-MAT|2026-10-16|10:00|LOT-NEXT-01,LOT-NEXT-02",
+          "title": "자재 수령 및 준비"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "10:00",
+          "role_key": "pk_b",
+          "worker_name": "노홍철",
+          "lot_id": "LOT-NEXT-01, LOT-NEXT-02",
+          "lot_ids": [
+            "LOT-NEXT-01",
+            "LOT-NEXT-02"
+          ],
+          "process_code": "PREP",
+          "rule_id": "PREP-MAT",
+          "task_key": "PREP-MAT|2026-10-16|10:00|LOT-NEXT-01,LOT-NEXT-02",
+          "title": "자재 수령 및 준비"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "p1_a",
+          "worker_name": "홍길동",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "p2_a",
+          "worker_name": "이영희",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "p2_b",
+          "worker_name": "박찬호",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "p2_c",
+          "worker_name": "최민수",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "p3_a",
+          "worker_name": "정우성",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "p3_b",
+          "worker_name": "강동원",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "p4_a",
+          "worker_name": "송강호",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "p4_b",
+          "worker_name": "이병헌",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "stage5",
+          "worker_name": "유재석",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "pk_a",
+          "worker_name": "하하",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-16",
+          "target_time": "15:00",
+          "role_key": "pk_b",
+          "worker_name": "노홍철",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-16|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "LOT-NEXT-01",
+          "lot_ids": [
+            "LOT-NEXT-01"
+          ],
+          "process_code": "A",
+          "rule_id": "A-1",
+          "task_key": "A-1|2026-10-20|09:00|LOT-NEXT-01",
+          "title": "원료 계량"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:30",
+          "role_key": "p1_a",
+          "worker_name": "홍길동",
+          "lot_id": "LOT-NEXT-01",
+          "lot_ids": [
+            "LOT-NEXT-01"
+          ],
+          "process_code": "A",
+          "rule_id": "A-2",
+          "task_key": "A-2|2026-10-20|09:30|LOT-NEXT-01",
+          "title": "공정1 준비 점검"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:30",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "LOT-NEXT-01",
+          "lot_ids": [
+            "LOT-NEXT-01"
+          ],
+          "process_code": "A",
+          "rule_id": "A-2",
+          "task_key": "A-2|2026-10-20|09:30|LOT-NEXT-01",
+          "title": "공정1 준비 점검"
+        },
+        {
+          "target_date": "2026-10-21",
+          "target_time": "09:00",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "LOT-NEXT-02",
+          "lot_ids": [
+            "LOT-NEXT-02"
+          ],
+          "process_code": "A",
+          "rule_id": "A-1",
+          "task_key": "A-1|2026-10-21|09:00|LOT-NEXT-02",
+          "title": "원료 계량"
+        },
+        {
+          "target_date": "2026-10-21",
+          "target_time": "09:30",
+          "role_key": "p1_a",
+          "worker_name": "홍길동",
+          "lot_id": "LOT-NEXT-02",
+          "lot_ids": [
+            "LOT-NEXT-02"
+          ],
+          "process_code": "A",
+          "rule_id": "A-2",
+          "task_key": "A-2|2026-10-21|09:30|LOT-NEXT-02",
+          "title": "공정1 준비 점검"
+        },
+        {
+          "target_date": "2026-10-21",
+          "target_time": "09:30",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "LOT-NEXT-02",
+          "lot_ids": [
+            "LOT-NEXT-02"
+          ],
+          "process_code": "A",
+          "rule_id": "A-2",
+          "task_key": "A-2|2026-10-21|09:30|LOT-NEXT-02",
+          "title": "공정1 준비 점검"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p1_a",
+          "worker_name": "홍길동",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p2_a",
+          "worker_name": "이영희",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p2_b",
+          "worker_name": "박찬호",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p2_c",
+          "worker_name": "최민수",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p3_a",
+          "worker_name": "정우성",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p3_b",
+          "worker_name": "강동원",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p4_a",
+          "worker_name": "송강호",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p4_b",
+          "worker_name": "이병헌",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "stage5",
+          "worker_name": "유재석",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "pk_a",
+          "worker_name": "하하",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "pk_b",
+          "worker_name": "노홍철",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        }
+      ],
+      "warnings": []
+    }
+  },
+  {
+    "name": "scenario_3_parent_child_merge_and_pkg",
+    "params": {
+      "batches": [
+        {
+          "lotNumber": "PA260302",
+          "schedule": {
+            "A": {
+              "startCode": "10200900",
+              "endCode": "10201800"
+            },
+            "D": {
+              "startCode": "10210900",
+              "endCode": "10211700"
+            },
+            "E": {
+              "startCode": "10220900"
+            }
+          },
+          "packagingStartDate": "2026-10-23T09:00:00"
+        },
+        {
+          "lotNumber": "PA260302A",
+          "schedule": {
+            "A": {
+              "startCode": "10200900",
+              "endCode": "10201800"
+            }
+          },
+          "packagingStartDate": "2026-10-23T14:00:00"
+        },
+        {
+          "lotNumber": "LOT-S4-01",
+          "schedule": {
+            "D": {
+              "startCode": "10200900",
+              "endCode": "10201700"
+            },
+            "E": {
+              "startCode": "10211000"
+            }
+          }
+        }
+      ],
+      "managers": {
+        "p1_a": "홍길동",
+        "p1_b": "김철수",
+        "p2_a": "이영희",
+        "p2_b": "박찬호",
+        "p2_c": "최민수",
+        "p3_a": "정우성",
+        "p3_b": "강동원",
+        "p4_a": "송강호",
+        "p4_b": "이병헌",
+        "stage5": "유재석",
+        "pk_a": "하하",
+        "pk_b": "노홍철"
+      },
+      "holidaySet": [
+        "2026-01-01",
+        "2026-02-16",
+        "2026-02-17",
+        "2026-02-18",
+        "2026-03-02",
+        "2026-05-01",
+        "2026-05-05",
+        "2026-05-25",
+        "2026-06-03",
+        "2026-06-06",
+        "2026-08-15",
+        "2026-08-17",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-26",
+        "2026-10-03",
+        "2026-10-05",
+        "2026-10-09",
+        "2026-12-25",
+        "2027-01-01",
+        "2027-02-06",
+        "2027-02-07",
+        "2027-02-08",
+        "2027-02-09",
+        "2027-03-01",
+        "2027-05-01",
+        "2027-05-05",
+        "2027-05-13",
+        "2027-06-06",
+        "2027-08-15",
+        "2027-08-16",
+        "2027-09-14",
+        "2027-09-15",
+        "2027-09-16",
+        "2027-10-03",
+        "2027-10-04",
+        "2027-10-09",
+        "2027-10-11",
+        "2027-12-25",
+        "2027-12-27"
+      ],
+      "today": "2026-10-19"
+    },
+    "output": {
+      "tasks": [
+        {
+          "rule_id": "A-1",
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "process_code": "A",
+          "title": "원료 계량",
+          "lot_id": "PA260302, PA260302A",
+          "lot_ids": [
+            "PA260302",
+            "PA260302A"
+          ],
+          "roles": [
+            "p1_b"
+          ],
+          "task_key": "A-1|2026-10-20|09:00|PA260302,PA260302A"
+        },
+        {
+          "rule_id": "D-1",
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "process_code": "D",
+          "title": "공정4 준비",
+          "lot_id": "LOT-S4-01",
+          "lot_ids": [
+            "LOT-S4-01"
+          ],
+          "roles": [
+            "p4_a",
+            "p4_b"
+          ],
+          "task_key": "D-1|2026-10-20|09:00|LOT-S4-01"
+        },
+        {
+          "rule_id": "A-2",
+          "target_date": "2026-10-20",
+          "target_time": "09:30",
+          "process_code": "A",
+          "title": "공정1 준비 점검",
+          "lot_id": "PA260302, PA260302A",
+          "lot_ids": [
+            "PA260302",
+            "PA260302A"
+          ],
+          "roles": [
+            "p1_a",
+            "p1_b"
+          ],
+          "task_key": "A-2|2026-10-20|09:30|PA260302,PA260302A"
+        },
+        {
+          "rule_id": "D-END",
+          "target_date": "2026-10-20",
+          "target_time": "17:00",
+          "process_code": "D",
+          "title": "공정4 완료품 이동",
+          "lot_id": "LOT-S4-01",
+          "lot_ids": [
+            "LOT-S4-01"
+          ],
+          "roles": [
+            "p4_a",
+            "p4_b"
+          ],
+          "task_key": "D-END|2026-10-20|17:00|LOT-S4-01"
+        },
+        {
+          "rule_id": "D-1",
+          "target_date": "2026-10-21",
+          "target_time": "09:00",
+          "process_code": "D",
+          "title": "공정4 준비",
+          "lot_id": "PA260302",
+          "lot_ids": [
+            "PA260302"
+          ],
+          "roles": [
+            "p4_a",
+            "p4_b"
+          ],
+          "task_key": "D-1|2026-10-21|09:00|PA260302"
+        },
+        {
+          "rule_id": "E-2",
+          "target_date": "2026-10-21",
+          "target_time": "10:00",
+          "process_code": "E",
+          "title": "공정5 시작",
+          "lot_id": "LOT-S4-01",
+          "lot_ids": [
+            "LOT-S4-01"
+          ],
+          "roles": [
+            "stage5"
+          ],
+          "task_key": "E-2|2026-10-21|10:00|LOT-S4-01"
+        },
+        {
+          "rule_id": "D-END",
+          "target_date": "2026-10-21",
+          "target_time": "17:00",
+          "process_code": "D",
+          "title": "공정4 완료품 이동",
+          "lot_id": "PA260302",
+          "lot_ids": [
+            "PA260302"
+          ],
+          "roles": [
+            "p4_a",
+            "p4_b"
+          ],
+          "task_key": "D-END|2026-10-21|17:00|PA260302"
+        },
+        {
+          "rule_id": "E-2",
+          "target_date": "2026-10-22",
+          "target_time": "09:00",
+          "process_code": "E",
+          "title": "공정5 시작",
+          "lot_id": "PA260302",
+          "lot_ids": [
+            "PA260302"
+          ],
+          "roles": [
+            "stage5"
+          ],
+          "task_key": "E-2|2026-10-22|09:00|PA260302"
+        },
+        {
+          "rule_id": "PKG-PREP",
+          "target_date": "2026-10-22",
+          "target_time": "16:00",
+          "process_code": "PKG",
+          "title": "포장재 준비",
+          "lot_id": "PA260302, PA260302A",
+          "lot_ids": [
+            "PA260302",
+            "PA260302A"
+          ],
+          "roles": [
+            "p1_a",
+            "p1_b",
+            "p2_a",
+            "p2_b",
+            "p2_c",
+            "p3_a",
+            "p3_b",
+            "p4_a",
+            "p4_b",
+            "stage5",
+            "pk_a",
+            "pk_b"
+          ],
+          "task_key": "PKG-PREP|2026-10-22|16:00|PA260302,PA260302A"
+        },
+        {
+          "rule_id": "CLEANING",
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "process_code": "CLEAN",
+          "title": "주간 청소",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "roles": [
+            "p1_a",
+            "p1_b",
+            "p2_a",
+            "p2_b",
+            "p2_c",
+            "p3_a",
+            "p3_b",
+            "p4_a",
+            "p4_b",
+            "stage5",
+            "pk_a",
+            "pk_b"
+          ],
+          "task_key": "CLEANING|2026-10-23|15:00|"
+        },
+        {
+          "rule_id": "CLEANING",
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "process_code": "CLEAN",
+          "title": "주간 청소",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "roles": [
+            "p1_a",
+            "p1_b",
+            "p2_a",
+            "p2_b",
+            "p2_c",
+            "p3_a",
+            "p3_b",
+            "p4_a",
+            "p4_b",
+            "stage5",
+            "pk_a",
+            "pk_b"
+          ],
+          "task_key": "CLEANING|2026-10-30|15:00|"
+        }
+      ],
+      "rows": [
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "PA260302, PA260302A",
+          "lot_ids": [
+            "PA260302",
+            "PA260302A"
+          ],
+          "process_code": "A",
+          "rule_id": "A-1",
+          "task_key": "A-1|2026-10-20|09:00|PA260302,PA260302A",
+          "title": "원료 계량"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "role_key": "p4_a",
+          "worker_name": "송강호",
+          "lot_id": "LOT-S4-01",
+          "lot_ids": [
+            "LOT-S4-01"
+          ],
+          "process_code": "D",
+          "rule_id": "D-1",
+          "task_key": "D-1|2026-10-20|09:00|LOT-S4-01",
+          "title": "공정4 준비"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:00",
+          "role_key": "p4_b",
+          "worker_name": "이병헌",
+          "lot_id": "LOT-S4-01",
+          "lot_ids": [
+            "LOT-S4-01"
+          ],
+          "process_code": "D",
+          "rule_id": "D-1",
+          "task_key": "D-1|2026-10-20|09:00|LOT-S4-01",
+          "title": "공정4 준비"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:30",
+          "role_key": "p1_a",
+          "worker_name": "홍길동",
+          "lot_id": "PA260302, PA260302A",
+          "lot_ids": [
+            "PA260302",
+            "PA260302A"
+          ],
+          "process_code": "A",
+          "rule_id": "A-2",
+          "task_key": "A-2|2026-10-20|09:30|PA260302,PA260302A",
+          "title": "공정1 준비 점검"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "09:30",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "PA260302, PA260302A",
+          "lot_ids": [
+            "PA260302",
+            "PA260302A"
+          ],
+          "process_code": "A",
+          "rule_id": "A-2",
+          "task_key": "A-2|2026-10-20|09:30|PA260302,PA260302A",
+          "title": "공정1 준비 점검"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "17:00",
+          "role_key": "p4_a",
+          "worker_name": "송강호",
+          "lot_id": "LOT-S4-01",
+          "lot_ids": [
+            "LOT-S4-01"
+          ],
+          "process_code": "D",
+          "rule_id": "D-END",
+          "task_key": "D-END|2026-10-20|17:00|LOT-S4-01",
+          "title": "공정4 완료품 이동"
+        },
+        {
+          "target_date": "2026-10-20",
+          "target_time": "17:00",
+          "role_key": "p4_b",
+          "worker_name": "이병헌",
+          "lot_id": "LOT-S4-01",
+          "lot_ids": [
+            "LOT-S4-01"
+          ],
+          "process_code": "D",
+          "rule_id": "D-END",
+          "task_key": "D-END|2026-10-20|17:00|LOT-S4-01",
+          "title": "공정4 완료품 이동"
+        },
+        {
+          "target_date": "2026-10-21",
+          "target_time": "09:00",
+          "role_key": "p4_a",
+          "worker_name": "송강호",
+          "lot_id": "PA260302",
+          "lot_ids": [
+            "PA260302"
+          ],
+          "process_code": "D",
+          "rule_id": "D-1",
+          "task_key": "D-1|2026-10-21|09:00|PA260302",
+          "title": "공정4 준비"
+        },
+        {
+          "target_date": "2026-10-21",
+          "target_time": "09:00",
+          "role_key": "p4_b",
+          "worker_name": "이병헌",
+          "lot_id": "PA260302",
+          "lot_ids": [
+            "PA260302"
+          ],
+          "process_code": "D",
+          "rule_id": "D-1",
+          "task_key": "D-1|2026-10-21|09:00|PA260302",
+          "title": "공정4 준비"
+        },
+        {
+          "target_date": "2026-10-21",
+          "target_time": "10:00",
+          "role_key": "stage5",
+          "worker_name": "유재석",
+          "lot_id": "LOT-S4-01",
+          "lot_ids": [
+            "LOT-S4-01"
+          ],
+          "process_code": "E",
+          "rule_id": "E-2",
+          "task_key": "E-2|2026-10-21|10:00|LOT-S4-01",
+          "title": "공정5 시작"
+        },
+        {
+          "target_date": "2026-10-21",
+          "target_time": "17:00",
+          "role_key": "p4_a",
+          "worker_name": "송강호",
+          "lot_id": "PA260302",
+          "lot_ids": [
+            "PA260302"
+          ],
+          "process_code": "D",
+          "rule_id": "D-END",
+          "task_key": "D-END|2026-10-21|17:00|PA260302",
+          "title": "공정4 완료품 이동"
+        },
+        {
+          "target_date": "2026-10-21",
+          "target_time": "17:00",
+          "role_key": "p4_b",
+          "worker_name": "이병헌",
+          "lot_id": "PA260302",
+          "lot_ids": [
+            "PA260302"
+          ],
+          "process_code": "D",
+          "rule_id": "D-END",
+          "task_key": "D-END|2026-10-21|17:00|PA260302",
+          "title": "공정4 완료품 이동"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "09:00",
+          "role_key": "stage5",
+          "worker_name": "유재석",
+          "lot_id": "PA260302",
+          "lot_ids": [
+            "PA260302"
+          ],
+          "process_code": "E",
+          "rule_id": "E-2",
+          "task_key": "E-2|2026-10-22|09:00|PA260302",
+          "title": "공정5 시작"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "16:00",
+          "role_key": "p1_a",
+          "worker_name": "홍길동",
+          "lot_id": "PA260302, PA260302A",
+          "lot_ids": [
+            "PA260302",
+            "PA260302A"
+          ],
+          "process_code": "PKG",
+          "rule_id": "PKG-PREP",
+          "task_key": "PKG-PREP|2026-10-22|16:00|PA260302,PA260302A",
+          "title": "포장재 준비"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "16:00",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "PA260302, PA260302A",
+          "lot_ids": [
+            "PA260302",
+            "PA260302A"
+          ],
+          "process_code": "PKG",
+          "rule_id": "PKG-PREP",
+          "task_key": "PKG-PREP|2026-10-22|16:00|PA260302,PA260302A",
+          "title": "포장재 준비"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "16:00",
+          "role_key": "p2_a",
+          "worker_name": "이영희",
+          "lot_id": "PA260302, PA260302A",
+          "lot_ids": [
+            "PA260302",
+            "PA260302A"
+          ],
+          "process_code": "PKG",
+          "rule_id": "PKG-PREP",
+          "task_key": "PKG-PREP|2026-10-22|16:00|PA260302,PA260302A",
+          "title": "포장재 준비"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "16:00",
+          "role_key": "p2_b",
+          "worker_name": "박찬호",
+          "lot_id": "PA260302, PA260302A",
+          "lot_ids": [
+            "PA260302",
+            "PA260302A"
+          ],
+          "process_code": "PKG",
+          "rule_id": "PKG-PREP",
+          "task_key": "PKG-PREP|2026-10-22|16:00|PA260302,PA260302A",
+          "title": "포장재 준비"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "16:00",
+          "role_key": "p2_c",
+          "worker_name": "최민수",
+          "lot_id": "PA260302, PA260302A",
+          "lot_ids": [
+            "PA260302",
+            "PA260302A"
+          ],
+          "process_code": "PKG",
+          "rule_id": "PKG-PREP",
+          "task_key": "PKG-PREP|2026-10-22|16:00|PA260302,PA260302A",
+          "title": "포장재 준비"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "16:00",
+          "role_key": "p3_a",
+          "worker_name": "정우성",
+          "lot_id": "PA260302, PA260302A",
+          "lot_ids": [
+            "PA260302",
+            "PA260302A"
+          ],
+          "process_code": "PKG",
+          "rule_id": "PKG-PREP",
+          "task_key": "PKG-PREP|2026-10-22|16:00|PA260302,PA260302A",
+          "title": "포장재 준비"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "16:00",
+          "role_key": "p3_b",
+          "worker_name": "강동원",
+          "lot_id": "PA260302, PA260302A",
+          "lot_ids": [
+            "PA260302",
+            "PA260302A"
+          ],
+          "process_code": "PKG",
+          "rule_id": "PKG-PREP",
+          "task_key": "PKG-PREP|2026-10-22|16:00|PA260302,PA260302A",
+          "title": "포장재 준비"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "16:00",
+          "role_key": "p4_a",
+          "worker_name": "송강호",
+          "lot_id": "PA260302, PA260302A",
+          "lot_ids": [
+            "PA260302",
+            "PA260302A"
+          ],
+          "process_code": "PKG",
+          "rule_id": "PKG-PREP",
+          "task_key": "PKG-PREP|2026-10-22|16:00|PA260302,PA260302A",
+          "title": "포장재 준비"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "16:00",
+          "role_key": "p4_b",
+          "worker_name": "이병헌",
+          "lot_id": "PA260302, PA260302A",
+          "lot_ids": [
+            "PA260302",
+            "PA260302A"
+          ],
+          "process_code": "PKG",
+          "rule_id": "PKG-PREP",
+          "task_key": "PKG-PREP|2026-10-22|16:00|PA260302,PA260302A",
+          "title": "포장재 준비"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "16:00",
+          "role_key": "stage5",
+          "worker_name": "유재석",
+          "lot_id": "PA260302, PA260302A",
+          "lot_ids": [
+            "PA260302",
+            "PA260302A"
+          ],
+          "process_code": "PKG",
+          "rule_id": "PKG-PREP",
+          "task_key": "PKG-PREP|2026-10-22|16:00|PA260302,PA260302A",
+          "title": "포장재 준비"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "16:00",
+          "role_key": "pk_a",
+          "worker_name": "하하",
+          "lot_id": "PA260302, PA260302A",
+          "lot_ids": [
+            "PA260302",
+            "PA260302A"
+          ],
+          "process_code": "PKG",
+          "rule_id": "PKG-PREP",
+          "task_key": "PKG-PREP|2026-10-22|16:00|PA260302,PA260302A",
+          "title": "포장재 준비"
+        },
+        {
+          "target_date": "2026-10-22",
+          "target_time": "16:00",
+          "role_key": "pk_b",
+          "worker_name": "노홍철",
+          "lot_id": "PA260302, PA260302A",
+          "lot_ids": [
+            "PA260302",
+            "PA260302A"
+          ],
+          "process_code": "PKG",
+          "rule_id": "PKG-PREP",
+          "task_key": "PKG-PREP|2026-10-22|16:00|PA260302,PA260302A",
+          "title": "포장재 준비"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p1_a",
+          "worker_name": "홍길동",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p2_a",
+          "worker_name": "이영희",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p2_b",
+          "worker_name": "박찬호",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p2_c",
+          "worker_name": "최민수",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p3_a",
+          "worker_name": "정우성",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p3_b",
+          "worker_name": "강동원",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p4_a",
+          "worker_name": "송강호",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p4_b",
+          "worker_name": "이병헌",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "stage5",
+          "worker_name": "유재석",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "pk_a",
+          "worker_name": "하하",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "pk_b",
+          "worker_name": "노홍철",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "p1_a",
+          "worker_name": "홍길동",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "p2_a",
+          "worker_name": "이영희",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "p2_b",
+          "worker_name": "박찬호",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "p2_c",
+          "worker_name": "최민수",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "p3_a",
+          "worker_name": "정우성",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "p3_b",
+          "worker_name": "강동원",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "p4_a",
+          "worker_name": "송강호",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "p4_b",
+          "worker_name": "이병헌",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "stage5",
+          "worker_name": "유재석",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "pk_a",
+          "worker_name": "하하",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "pk_b",
+          "worker_name": "노홍철",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        }
+      ],
+      "warnings": []
+    }
+  },
+  {
+    "name": "scenario_4_empty_batches_cleaning",
+    "params": {
+      "batches": [],
+      "managers": {
+        "p1_a": "홍길동",
+        "p1_b": "김철수",
+        "p2_a": "이영희",
+        "p2_b": "박찬호",
+        "p2_c": "최민수",
+        "p3_a": "정우성",
+        "p3_b": "강동원",
+        "p4_a": "송강호",
+        "p4_b": "이병헌",
+        "stage5": "유재석",
+        "pk_a": "하하",
+        "pk_b": "노홍철"
+      },
+      "holidaySet": [
+        "2026-01-01",
+        "2026-02-16",
+        "2026-02-17",
+        "2026-02-18",
+        "2026-03-02",
+        "2026-05-01",
+        "2026-05-05",
+        "2026-05-25",
+        "2026-06-03",
+        "2026-06-06",
+        "2026-08-15",
+        "2026-08-17",
+        "2026-09-24",
+        "2026-09-25",
+        "2026-09-26",
+        "2026-10-03",
+        "2026-10-05",
+        "2026-10-09",
+        "2026-12-25",
+        "2027-01-01",
+        "2027-02-06",
+        "2027-02-07",
+        "2027-02-08",
+        "2027-02-09",
+        "2027-03-01",
+        "2027-05-01",
+        "2027-05-05",
+        "2027-05-13",
+        "2027-06-06",
+        "2027-08-15",
+        "2027-08-16",
+        "2027-09-14",
+        "2027-09-15",
+        "2027-09-16",
+        "2027-10-03",
+        "2027-10-04",
+        "2027-10-09",
+        "2027-10-11",
+        "2027-12-25",
+        "2027-12-27"
+      ],
+      "today": "2026-10-21"
+    },
+    "output": {
+      "tasks": [
+        {
+          "rule_id": "CLEANING",
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "process_code": "CLEAN",
+          "title": "주간 청소",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "roles": [
+            "p1_a",
+            "p1_b",
+            "p2_a",
+            "p2_b",
+            "p2_c",
+            "p3_a",
+            "p3_b",
+            "p4_a",
+            "p4_b",
+            "stage5",
+            "pk_a",
+            "pk_b"
+          ],
+          "task_key": "CLEANING|2026-10-23|15:00|"
+        },
+        {
+          "rule_id": "CLEANING",
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "process_code": "CLEAN",
+          "title": "주간 청소",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "roles": [
+            "p1_a",
+            "p1_b",
+            "p2_a",
+            "p2_b",
+            "p2_c",
+            "p3_a",
+            "p3_b",
+            "p4_a",
+            "p4_b",
+            "stage5",
+            "pk_a",
+            "pk_b"
+          ],
+          "task_key": "CLEANING|2026-10-30|15:00|"
+        }
+      ],
+      "rows": [
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p1_a",
+          "worker_name": "홍길동",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p2_a",
+          "worker_name": "이영희",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p2_b",
+          "worker_name": "박찬호",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p2_c",
+          "worker_name": "최민수",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p3_a",
+          "worker_name": "정우성",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p3_b",
+          "worker_name": "강동원",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p4_a",
+          "worker_name": "송강호",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "p4_b",
+          "worker_name": "이병헌",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "stage5",
+          "worker_name": "유재석",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "pk_a",
+          "worker_name": "하하",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-23",
+          "target_time": "15:00",
+          "role_key": "pk_b",
+          "worker_name": "노홍철",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-23|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "p1_a",
+          "worker_name": "홍길동",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "p1_b",
+          "worker_name": "김철수",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "p2_a",
+          "worker_name": "이영희",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "p2_b",
+          "worker_name": "박찬호",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "p2_c",
+          "worker_name": "최민수",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "p3_a",
+          "worker_name": "정우성",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "p3_b",
+          "worker_name": "강동원",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "p4_a",
+          "worker_name": "송강호",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "p4_b",
+          "worker_name": "이병헌",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "stage5",
+          "worker_name": "유재석",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "pk_a",
+          "worker_name": "하하",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        },
+        {
+          "target_date": "2026-10-30",
+          "target_time": "15:00",
+          "role_key": "pk_b",
+          "worker_name": "노홍철",
+          "lot_id": "공통",
+          "lot_ids": [],
+          "process_code": "CLEAN",
+          "rule_id": "CLEANING",
+          "task_key": "CLEANING|2026-10-30|15:00|",
+          "title": "주간 청소"
+        }
+      ],
+      "warnings": []
+    }
+  }
+]

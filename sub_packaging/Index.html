@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <link rel="stylesheet" href="../css/popup-theme.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>포장 비품실 선반 보관 배치 현황</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.js" integrity="sha384-uteMfOloLDGt042uDz+xHGF3ym63/WQ6rFq7murQRG8Ih7QrXGEGNtWd8688sb4O" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../css/shelf.css">
+</head>
+<!-- 화면은 src/rooms/ (메인 화면 창 안에 뜨는 것과 같다) -->
+<body class="auth-pending room-page" data-room="pack-supplies">
+  <!-- 로그인 확인 전 가림막 (실제 권한은 DB가 검사한다) -->
+  <div id="subapp-auth-gate" style="position:fixed;inset:0;z-index:999999;background:radial-gradient(circle at 50% 35%, #1e293b 0%, #080c14 100%);display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+    <div style="background:rgba(15,23,42,0.92);border:1px solid rgba(56,189,248,0.3);border-radius:14px;padding:36px 32px;max-width:440px;width:90%;text-align:center;box-shadow:0 25px 50px -12px rgba(0,0,0,0.7);">
+      <div id="subapp-gate-icon" style="font-size:48px;margin-bottom:16px;">🛡️</div>
+      <h2 id="subapp-gate-title" style="color:#f8fafc;font-size:18px;font-weight:700;margin-bottom:8px;">로그인 확인 중</h2>
+      <p id="subapp-gate-desc" style="color:#94a3b8;font-size:13px;line-height:1.6;margin-bottom:20px;">잠시만 기다려 주십시오.</p>
+    </div>
+  </div>
+<div id="root"></div>
+
+<script type="module" src="/src/rooms/main.tsx"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# push·PR마다 전체 테스트(타입 검사·빌드·단위·E2E). 기록본 비교가 Windows 글꼴 기준이라 Windows에서 돌린다
+name: test
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 24, cache: npm }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: npm ci
+      - run: pip install playwright==1.63.0 && python -m playwright install chromium
+      - run: node scripts/run-tests.js

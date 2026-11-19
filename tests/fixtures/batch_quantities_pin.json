@@ -1,0 +1,314 @@
+{
+ "정상(새 형식)": {
+  "calc": {
+   "actualB": 1000,
+   "actualBNet": 990,
+   "actualC": 985,
+   "actualD": 985,
+   "actualE": 980,
+   "actualInspection": 970,
+   "actualPackaging": 968,
+   "finalQty": 968,
+   "losses": {
+    "B": 10,
+    "C": 5,
+    "D": 0,
+    "E": 5,
+    "inspection": 10,
+    "packaging": 2
+   }
+  },
+  "zones": {
+   "stage1-wait": 1000,
+   "stage1": 1000,
+   "stage2-wait": 1000,
+   "stage2": 1000,
+   "stage3-wait": 990,
+   "stage3-1": 990,
+   "stage4-wait": 985,
+   "stage4-2": 985,
+   "stage5-wait": 985,
+   "stage5": 985,
+   "semi-storage-pre": 980,
+   "inspection": 980,
+   "semi-storage-post": 970,
+   "packaging-wait": 970,
+   "packaging": 968,
+   "logistics": 968,
+   "unknown-zone": 968
+  }
+ },
+ "차감 일부 비어 있음": {
+  "calc": {
+   "actualB": 500,
+   "actualBNet": 497,
+   "actualC": 497,
+   "actualD": 497,
+   "actualE": 495,
+   "actualInspection": 495,
+   "actualPackaging": 495,
+   "finalQty": 495,
+   "losses": {
+    "B": 3,
+    "C": 0,
+    "D": 0,
+    "E": 2,
+    "inspection": 0,
+    "packaging": 0
+   }
+  },
+  "zones": {
+   "stage1-wait": 500,
+   "stage1": 500,
+   "stage2-wait": 500,
+   "stage2": 500,
+   "stage3-wait": 497,
+   "stage3-1": 497,
+   "stage4-wait": 497,
+   "stage4-2": 497,
+   "stage5-wait": 497,
+   "stage5": 497,
+   "semi-storage-pre": 495,
+   "inspection": 495,
+   "semi-storage-post": 495,
+   "packaging-wait": 495,
+   "packaging": 495,
+   "logistics": 495,
+   "unknown-zone": 495
+  }
+ },
+ "문자열 숫자": {
+  "calc": {
+   "actualB": 1200,
+   "actualBNet": 1180,
+   "actualC": 1175,
+   "actualD": 1175,
+   "actualE": 1175,
+   "actualInspection": 1175,
+   "actualPackaging": 1175,
+   "finalQty": 1175,
+   "losses": {
+    "B": 20,
+    "C": 5,
+    "D": 0,
+    "E": 0,
+    "inspection": 0,
+    "packaging": 0
+   }
+  },
+  "zones": {
+   "stage1-wait": 1200,
+   "stage1": 1200,
+   "stage2-wait": 1200,
+   "stage2": 1200,
+   "stage3-wait": 1180,
+   "stage3-1": 1180,
+   "stage4-wait": 1175,
+   "stage4-2": 1175,
+   "stage5-wait": 1175,
+   "stage5": 1175,
+   "semi-storage-pre": 1175,
+   "inspection": 1175,
+   "semi-storage-post": 1175,
+   "packaging-wait": 1175,
+   "packaging": 1175,
+   "logistics": 1175,
+   "unknown-zone": 1175
+  }
+ },
+ "옛 형식(qtyB, lossQuantities)": {
+  "calc": {
+   "actualB": 800,
+   "actualBNet": 792,
+   "actualC": 790,
+   "actualD": 790,
+   "actualE": 790,
+   "actualInspection": 790,
+   "actualPackaging": 790,
+   "finalQty": 790,
+   "losses": {
+    "B": 8,
+    "C": 2,
+    "D": 0,
+    "E": 0,
+    "inspection": 0,
+    "packaging": 0
+   }
+  },
+  "zones": {
+   "stage1-wait": 800,
+   "stage1": 800,
+   "stage2-wait": 800,
+   "stage2": 800,
+   "stage3-wait": 792,
+   "stage3-1": 792,
+   "stage4-wait": 790,
+   "stage4-2": 790,
+   "stage5-wait": 790,
+   "stage5": 790,
+   "semi-storage-pre": 790,
+   "inspection": 790,
+   "semi-storage-post": 790,
+   "packaging-wait": 790,
+   "packaging": 790,
+   "logistics": 790,
+   "unknown-zone": 790
+  }
+ },
+ "공정2 수량 없음": {
+  "calc": {
+   "actualB": null,
+   "actualBNet": null,
+   "actualC": null,
+   "actualD": null,
+   "actualE": null,
+   "actualInspection": null,
+   "actualPackaging": null,
+   "finalQty": null,
+   "losses": {
+    "B": 0,
+    "C": 0,
+    "D": 0,
+    "E": 0,
+    "inspection": 0,
+    "packaging": 0
+   }
+  },
+  "zones": {
+   "stage1-wait": null,
+   "stage1": null,
+   "stage2-wait": null,
+   "stage2": null,
+   "stage3-wait": null,
+   "stage3-1": null,
+   "stage4-wait": null,
+   "stage4-2": null,
+   "stage5-wait": null,
+   "stage5": null,
+   "semi-storage-pre": null,
+   "inspection": null,
+   "semi-storage-post": null,
+   "packaging-wait": null,
+   "packaging": null,
+   "logistics": null,
+   "unknown-zone": null
+  }
+ },
+ "공정2 수량 없이 저장된 실수량만": {
+  "calc": {
+   "actualB": null,
+   "actualBNet": null,
+   "actualC": 700,
+   "actualD": 700,
+   "actualE": 690,
+   "actualInspection": 685,
+   "actualPackaging": 685,
+   "finalQty": 685,
+   "losses": {
+    "B": 0,
+    "C": 0,
+    "D": 0,
+    "E": 0,
+    "inspection": 5,
+    "packaging": 0
+   }
+  },
+  "zones": {
+   "stage1-wait": null,
+   "stage1": null,
+   "stage2-wait": null,
+   "stage2": null,
+   "stage3-wait": null,
+   "stage3-1": null,
+   "stage4-wait": 700,
+   "stage4-2": 700,
+   "stage5-wait": 700,
+   "stage5": 700,
+   "semi-storage-pre": 690,
+   "inspection": 690,
+   "semi-storage-post": 685,
+   "packaging-wait": 685,
+   "packaging": 685,
+   "logistics": 685,
+   "unknown-zone": 685
+  }
+ },
+ "수량 정보 없음": {
+  "calc": {
+   "actualB": null,
+   "actualBNet": null,
+   "actualC": null,
+   "actualD": null,
+   "actualE": null,
+   "actualInspection": null,
+   "actualPackaging": null,
+   "finalQty": null,
+   "losses": {
+    "B": 0,
+    "C": 0,
+    "D": 0,
+    "E": 0,
+    "inspection": 0,
+    "packaging": 0
+   }
+  },
+  "zones": {
+   "stage1-wait": null,
+   "stage1": null,
+   "stage2-wait": null,
+   "stage2": null,
+   "stage3-wait": null,
+   "stage3-1": null,
+   "stage4-wait": null,
+   "stage4-2": null,
+   "stage5-wait": null,
+   "stage5": null,
+   "semi-storage-pre": null,
+   "inspection": null,
+   "semi-storage-post": null,
+   "packaging-wait": null,
+   "packaging": null,
+   "logistics": null,
+   "unknown-zone": null
+  }
+ },
+ "차감이 0": {
+  "calc": {
+   "actualB": 300,
+   "actualBNet": 300,
+   "actualC": 300,
+   "actualD": 300,
+   "actualE": 300,
+   "actualInspection": 300,
+   "actualPackaging": 300,
+   "finalQty": 300,
+   "losses": {
+    "B": 0,
+    "C": 0,
+    "D": 0,
+    "E": 0,
+    "inspection": 0,
+    "packaging": 0
+   }
+  },
+  "zones": {
+   "stage1-wait": 300,
+   "stage1": 300,
+   "stage2-wait": 300,
+   "stage2": 300,
+   "stage3-wait": 300,
+   "stage3-1": 300,
+   "stage4-wait": 300,
+   "stage4-2": 300,
+   "stage5-wait": 300,
+   "stage5": 300,
+   "semi-storage-pre": 300,
+   "inspection": 300,
+   "semi-storage-post": 300,
+   "packaging-wait": 300,
+   "packaging": 300,
+   "logistics": 300,
+   "unknown-zone": 300
+  }
+ }
+}

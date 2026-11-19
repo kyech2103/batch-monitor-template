@@ -1,0 +1,28 @@
+/* AI 입력 (js/ai_input/ui.js가 불러온다). PC와 모바일이 같은 dialog를 쓴다 */
+.ba-body { display: flex; flex-direction: column; gap: 12px; }
+.ba-body textarea { width: 100%; min-height: 120px; font-family: inherit; font-size: 16px; line-height: 1.5; resize: vertical; box-sizing: border-box; }
+.ba-parse { align-self: flex-start; min-width: 96px; }
+.ba-status { font-size: 13px; font-weight: 600; color: var(--pt-text); min-height: 18px; }
+.ba-status.is-ok { color: #047857; }
+.ba-notice { margin: 0 0 8px; padding: 8px 10px; border-radius: 6px; background: #fef3c7; color: #92400e; font-size: 13px; }
+.ba-group { border: 1px solid var(--pt-border); border-radius: 8px; background: var(--pt-surface); padding: 10px 12px; margin-bottom: 10px; }
+.ba-lot { margin: 0 0 4px; font-size: 22px; font-weight: 800; color: var(--pt-text); overflow-wrap: anywhere; }
+.ba-line { display: flex; gap: 10px; align-items: flex-start; min-height: 44px; padding: 8px 0; border-top: 1px solid var(--pt-border); cursor: pointer; box-sizing: border-box; }
+.ba-line:first-of-type { border-top: none; }
+.ba-check { width: 22px; height: 22px; margin: 2px 0 0; flex-shrink: 0; }
+.ba-line-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.ba-label { font-size: 14px; font-weight: 700; color: var(--pt-text); }
+.ba-change { font-size: 14px; color: var(--pt-text-sub); overflow-wrap: anywhere; }
+.ba-quote { font-size: 13px; color: var(--pt-muted); overflow-wrap: anywhere; }
+.ba-warn { font-size: 13px; color: #b45309; }
+.ba-line.is-error { cursor: default; opacity: 0.8; }
+.ba-line.is-error .ba-warn { color: #b91c1c; }
+.ba-skipped { font-size: 13px; color: var(--pt-text-sub); }
+.ba-skipped h4 { margin: 4px 0; font-size: 13px; }
+.ba-skipped ul { margin: 0; padding-left: 18px; }
+.ba-flag { margin-top: 8px; font-size: 12px; }
+.ba-empty { margin: 0; font-size: 13px; color: var(--pt-muted); }
+body.m-mode #batch-assist-modal .pt-btn { height: 44px; min-width: 64px; }
+@media (max-width: 768px) { #batch-assist-modal .pt-body { flex: 1 1 auto; } }
+div:has(> #m-batch-search + #m-btn-ai-input) { display: flex; gap: 8px; }
+#m-batch-search:has(+ #m-btn-ai-input) { flex: 1; min-width: 0; }

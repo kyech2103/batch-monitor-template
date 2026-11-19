@@ -1,0 +1,10 @@
+{
+  "report": "PA-1 배치 삭제해 주세요\n새 배치 PA-404 공정3 차감 1\n어느 배치인지 모를 완료 보고",
+  "changes": [
+    { "op": "delete", "lot": "PA-1", "quote": "PA-1 배치 삭제해 주세요" },
+    { "op": "loss", "lot": "PA-404", "step": "C", "qty": 1, "quote": "새 배치 PA-404 공정3 차감 1" },
+    { "op": "end", "lot": null, "step": "C", "at": null, "quote": "어느 배치인지 모를 완료 보고" }
+  ],
+  "expectedLines": [],
+  "expectedSkipped": 3
+}

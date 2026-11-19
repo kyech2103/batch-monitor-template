@@ -1,0 +1,28 @@
+[
+  {
+    "lotNumber": "PA-1",
+    "manualZone": "stage3",
+    "assignedZone": "stage3",
+    "manualMovedAt": "2026-11-08T04:00:00.000Z",
+    "schedule": {
+      "A": { "stepId": "A", "stepName": "공정1", "room": "공정1실", "startDate": "2026-11-08T00:00:00.000Z", "endDate": "2026-11-08T02:00:00.000Z", "durationMinutes": 120 },
+      "B": { "stepId": "B", "stepName": "공정2", "room": "공정2실", "startDate": "2026-11-08T02:00:00.000Z", "endDate": "2026-11-08T04:00:00.000Z", "durationMinutes": 120 },
+      "C": { "stepId": "C", "stepName": "공정3", "room": "공정3실", "startDate": "2026-11-08T04:00:00.000Z", "endDate": "2026-11-09T04:00:00.000Z", "durationMinutes": 1440, "remarks": "1호기" },
+      "D": { "stepId": "D", "stepName": "공정4", "room": "공정4실", "startDate": "2026-11-09T04:00:00.000Z", "endDate": "2026-11-09T06:00:00.000Z", "durationMinutes": 120 },
+      "E": { "stepId": "E", "stepName": "공정5", "room": "공정5실", "startDate": "2026-11-09T06:00:00.000Z", "endDate": "2026-11-09T07:00:00.000Z", "durationMinutes": 60 },
+      "packaging": { "stepId": "packaging", "stepName": "포장", "room": "포장실", "startDate": "2026-11-10T00:00:00.000Z", "endDate": "2026-11-10T03:00:00.000Z", "durationMinutes": 180 }
+    },
+    "quantities": { "B": 1000, "losses": { "B": 10, "C": 5 } },
+    "remarks": { "C": "1호기" }
+  },
+  {
+    "lotNumber": "PA-2",
+    "manualZone": "stage4",
+    "assignedZone": "stage4",
+    "schedule": {
+      "packaging": { "stepId": "packaging", "stepName": "포장", "room": "포장실", "startDate": "2026-11-11T01:00:00.000Z", "endDate": "2026-11-11T05:00:00.000Z", "durationMinutes": 240 }
+    },
+    "quantities": { "B": 500, "losses": { "B": 10 } }
+  },
+  { "lotNumber": "PA-3", "manualZone": "stage5", "assignedZone": "stage5" }
+]

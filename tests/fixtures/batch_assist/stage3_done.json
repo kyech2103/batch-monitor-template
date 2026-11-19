@@ -1,0 +1,15 @@
+{
+  "report": "공정 후 차감 2\nPA-1 공정3 공정 완료했습니다 (13:30)\n공정 중 차감 4 용기 파손",
+  "changes": [
+    { "op": "loss", "lot": "PA-1", "step": "C", "qty": 2, "quote": "공정 후 차감 2" },
+    { "op": "end", "lot": "PA-1", "step": "C", "at": "2026-11-09T13:30", "quote": "PA-1 공정3 공정 완료했습니다 (13:30)" },
+    { "op": "loss", "lot": "PA-1", "step": "C", "qty": 4, "quote": "공정 중 차감 4 용기 파손" },
+    { "op": "memo", "lot": "PA-1", "step": "C", "text": "용기 파손", "quote": "공정 중 차감 4 용기 파손" }
+  ],
+  "expectedLines": [
+    { "id": "PA-1|loss|C", "label": "공정3 차감 (2+4)", "before": "차감 5 · 남은 985", "after": "차감 6 · 남은 984", "on": true },
+    { "id": "PA-1|end|C", "label": "공정3 종료", "before": "11/09 13:00", "after": "11/09 13:30", "on": true },
+    { "id": "PA-1|memo|C", "label": "공정3 비고", "before": "1호기", "after": "1호기 / 용기 파손", "on": true }
+  ],
+  "expectedSkipped": 0
+}

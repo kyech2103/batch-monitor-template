@@ -1,0 +1,640 @@
+
+/* 메인 화면 창 안에도 뜨므로 모두 .wh-app 아래로 범위를 묶는다. 새 창(sub_*)은 body.room-page */
+body.room-page { margin: 0; }
+/* :where()로 묶어 옛 화면과 같은 우선순위를 지킨다 (공용 .pt-btn 등이 그대로 이긴다). 이 파일은 main.css 뒤에 불러온다 */
+:where(.wh-app) {
+  --bg-page: #f1f5f9;
+      --bg-surface: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --text-muted: #64748b;
+      --border-dark: #1e293b;
+      --border-normal: #cbd5e1;
+      --border-soft: #e2e8f0;
+
+      --rack-frame: var(--pt-border-strong, #cbd5e1);
+      --rack-steel-beam: #334155;
+      --rack-wood: #f1e5d1;
+      --rack-wood-border: #d4b896;
+
+      --accent-blue: #2563eb;
+      --accent-purple: #7c3aed;
+      --accent-green: #059669;
+      --accent-amber: #d97706;
+      --accent-red: #dc2626;
+
+      --color-blue-bg: #dbeafe;
+      --color-blue-border: #93c5fd;
+      --color-blue-text: #1e40af;
+
+      --color-green-bg: #dcfce7;
+      --color-green-border: #86efac;
+      --color-green-text: #166534;
+
+      --color-yellow-bg: #fef9c3;
+      --color-yellow-border: #fde047;
+      --color-yellow-text: #854d0e;
+
+      --color-red-bg: #fee2e2;
+      --color-red-border: #fca5a5;
+      --color-red-text: #991b1b;
+
+      --color-white-bg: #ffffff;
+      --color-white-border: #cbd5e1;
+      --color-white-text: #1e293b;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", "Pretendard", sans-serif;
+      background: var(--bg-page);
+      color: var(--text-main);
+      padding: 16px 20px 40px;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+  min-height: 100%;
+  & * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* ============================================================
+       HEADER & TOOLBAR
+       ============================================================ */
+  header {
+      background: #ffffff;
+      border: 2px solid var(--border-normal);
+      border-radius: 14px;
+      padding: 14px 20px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      box-shadow: 0 3px 12px -3px rgba(15, 23, 42, 0.08);
+      position: relative;
+      overflow: visible;
+    }
+  header::before {
+      display: none !important;
+    }
+  .header-title-group h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.3px;
+    }
+  .header-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+      font-weight: 500;
+    }
+  .toolbar {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+  button {
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1.5px solid var(--border-normal);
+      background: #ffffff;
+      color: var(--text-main);
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: inherit;
+    }
+  button:hover {
+      background: #f8fafc;
+      border-color: var(--accent-purple);
+      transform: translateY(-1px);
+    }
+  button:active { transform: translateY(0); }
+  .btn-primary {
+      background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+      color: #ffffff;
+      border-color: #5b21b6;
+      box-shadow: 0 2px 6px -2px rgba(124, 58, 237, 0.45);
+    }
+  .btn-primary:hover {
+      background: linear-gradient(135deg, #6d28d9 0%, #5b21b6 100%);
+      border-color: #4c1d95;
+    }
+  .btn-save-html {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      color: var(--pt-text);
+      border-color: #065f46;
+    }
+  .btn-save-png {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: var(--pt-text);
+      border-color: #075985;
+    }
+  .sync-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.74rem;
+      padding: 5px 12px;
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      border-radius: 20px;
+      font-weight: 700;
+      color: #166534;
+      white-space: nowrap;
+    }
+  .sync-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #10b981; display: inline-block;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+    }
+  /* ============================================================
+       EXTRA TRAY & SEARCH
+       ============================================================ */
+  .controls-panel {
+      background: #ffffff;
+      border: 1.5px solid var(--border-normal);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 2px 8px -3px rgba(15, 23, 42, 0.06);
+    }
+  .add-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+  .add-label {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--accent-purple);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+  .input-text {
+      padding: 6px 12px;
+      border: 1.5px solid var(--border-normal);
+      border-radius: 8px;
+      font-size: 0.8rem;
+      flex: 1;
+      min-width: 220px;
+      outline: none;
+      font-family: inherit;
+    }
+  .input-text:focus {
+      border-color: var(--accent-purple);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+    }
+  .btn-table-del {
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid #fca5a5;
+      background: #fef2f2;
+      color: #b91c1c;
+      transition: all 0.15s;
+    }
+  .btn-table-del:hover {
+      background: #fee2e2;
+      border-color: #ef4444;
+    }
+  /* Extra tray (대기 품목 리스트) */
+  .tray-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 6px;
+      border-top: 1px dashed var(--border-soft);
+      flex-wrap: wrap;
+    }
+  .tray-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+  .tray-items {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      flex: 1;
+      min-height: 32px;
+      align-items: center;
+      padding: 4px 8px;
+      background: #f8fafc;
+      border-radius: 8px;
+      border: 1.5px dashed var(--border-normal);
+    }
+  .tray-items.drag-over {
+      background: #f3e8ff;
+      border-color: #a855f7;
+    }
+  /* Search row */
+  .search-box {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+  .search-input {
+      padding: 5px 10px;
+      border: 1.5px solid var(--border-normal);
+      border-radius: 6px;
+      font-size: 0.76rem;
+      outline: none;
+      width: 180px;
+      font-family: inherit;
+    }
+  .search-input:focus {
+      border-color: var(--accent-purple);
+    }
+  /* ============================================================
+       WAREHOUSE 4-TIER x 2-COLUMN WIDE RACK
+       사용자의 손그림(가로로 넓은 4단 2열 단일 랙)을 완벽 구현
+       ============================================================ */
+  .warehouse-container {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto 20px;
+    }
+  /* Column labels at top: 좌측 선반 vs 우측 선반 */
+  .rack-column-headers {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-bottom: 6px;
+    }
+  .col-header-box {
+      background: linear-gradient(180deg, #334155 0%, #1e293b 100%);
+      color: #ffffff;
+      padding: 8px 16px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  .col-header-left {
+      border-top-left-radius: 8px;
+      border-right: 1.5px solid #475569;
+    }
+  .col-header-right {
+      border-top-right-radius: 8px;
+      border-left: 1.5px solid #475569;
+    }
+  .col-header-badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.18);
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+  /* The Main Outer Industrial Steel Frame */
+  .wide-shelf-rack {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--pt-border-strong);
+      border-radius: 0 0 10px 10px;
+      background: #ffffff;
+      box-shadow:
+        0 14px 28px -10px rgba(15, 23, 42, 0.2),
+        0 2px 6px -2px rgba(15, 23, 42, 0.12);
+      overflow: hidden;
+    }
+  /* Each tier row (4단, 3단, 2단, 1단) */
+  .tier-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--pt-border-strong);
+      position: relative;
+      background: #ffffff;
+    }
+  .tier-row:last-child {
+      border-bottom: none;
+    }
+  /* Horizontal shelf beam texture (heavy steel beam across the tier bottom) */
+  .tier-row::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 7px;
+      background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 100%);
+      border-top: 1px solid #64748b;
+      pointer-events: none;
+      z-index: 2;
+    }
+  /* Individual Bay (총 8개 구역: 좌측 4칸 + 우측 4칸) */
+  .shelf-bay {
+      padding: 10px 14px 16px;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      transition: background 0.15s, outline 0.15s;
+    }
+  .bay-left {
+      border-right: 1px solid var(--pt-border-strong);
+    }
+  .bay-right {
+      /* right bay */
+    }
+  /* Drag over state */
+  .shelf-bay.drag-over {
+      background: #f5f3ff !important;
+      outline: 3px dashed var(--accent-purple) !important;
+      outline-offset: -3px;
+    }
+  /* Bay meta header (e.g. "4단 (상단) - 좌측 1구역") */
+  .bay-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+      pointer-events: none;
+    }
+  .bay-tag {
+      font-size: 0.76rem;
+      font-weight: 800;
+      color: #334155;
+      background: rgba(226, 232, 240, 0.7);
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border: 1px solid #cbd5e1;
+    }
+  .bay-capacity {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+  /* Items Container inside each Bay: 가로로 널찍하게 다수의 박스/블록 수용 */
+  .bay-items-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      flex: 1;
+      min-height: 56px;
+    }
+  .bay-empty-hint {
+      color: #94a3b8;
+      font-size: 0.76rem;
+      font-weight: 600;
+      font-style: italic;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      user-select: none;
+      padding: 6px 10px;
+      border: 1.5px dashed #cbd5e1;
+      border-radius: 6px;
+      width: 100%;
+      cursor: pointer;
+    }
+  .bay-empty-hint:hover {
+      background: #f1f5f9;
+      color: var(--accent-purple);
+      border-color: var(--accent-purple);
+    }
+  /* ============================================================
+       ITEM BLOCK CARD (드래그 & 드롭 및 클릭 편집 대상)
+       ============================================================ */
+  .item-card {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1.5px solid var(--border-normal);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-main);
+      cursor: grab;
+      user-select: none;
+      box-shadow: 0 2px 5px -1px rgba(15, 23, 42, 0.1);
+      transition: all 0.15s ease;
+      position: relative;
+    }
+  .item-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 12px -3px rgba(15, 23, 42, 0.2);
+    }
+  .item-card:active { cursor: grabbing; }
+  .item-card.is-dragging {
+      opacity: 0.4;
+      transform: scale(0.96);
+    }
+  .item-card.highlight-search {
+      outline: 3px solid #f59e0b !important;
+      animation: wh-pulseHighlight 1s infinite alternate;
+    }
+  .item-icon { font-size: 0.95rem; }
+  .item-text {
+      font-weight: 700;
+      white-space: nowrap;
+      color: #0f172a;
+    }
+  .item-del-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 0.72rem;
+      padding: 0;
+      margin-left: 2px;
+      transition: all 0.12s;
+    }
+  .item-del-btn:hover {
+      color: #ef4444;
+      background: rgba(239, 68, 68, 0.12);
+    }
+  .item-transfer-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      background: transparent;
+      border: none;
+      color: #0284c7;
+      cursor: pointer;
+      font-size: 0.72rem;
+      padding: 0;
+      margin-left: 2px;
+      transition: all 0.12s;
+    }
+  .item-transfer-btn:hover {
+      color: #0369a1;
+      background: rgba(2, 132, 199, 0.12);
+      transform: scale(1.15);
+    }
+  /* ============================================================
+       EDIT MODAL DIALOG
+       ============================================================ */
+  dialog.detail-modal {
+      border: none;
+      padding: 0;
+      margin: auto;
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.35);
+      width: 90vw;
+      max-width: 480px;
+      outline: none;
+    }
+  dialog.detail-modal::backdrop {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+    }
+  .detail-container {
+      padding: 20px;
+    }
+  .detail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1.5px solid var(--border-soft);
+    }
+  .detail-header h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+  .form-group {
+      margin-bottom: 12px;
+    }
+  .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-sub);
+      margin-bottom: 4px;
+    }
+  .form-control {
+      width: 100%;
+      padding: 7px 12px;
+      border: 1.5px solid var(--border-normal);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      outline: none;
+    }
+  .form-control:focus {
+      border-color: var(--accent-purple);
+    }
+  .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 18px;
+    }
+  /* ============================================================
+       BOTTOM SUMMARY TABLE
+       ============================================================ */
+  .wh-summary-card {
+      background: #ffffff;
+      border: 1.5px solid var(--border-normal);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-top: 18px;
+    }
+  .summary-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+  .summary-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+  .summary-count {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--accent-purple);
+      background: #f3e8ff;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid #e9d5ff;
+    }
+  table.summary-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+  table.summary-table th {
+      background: #f8fafc;
+      padding: 8px 10px;
+      text-align: left;
+      font-weight: 700;
+      color: var(--text-sub);
+      border-bottom: 1.5px solid var(--border-normal);
+    }
+  table.summary-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border-soft);
+      color: var(--text-main);
+    }
+  table.summary-table tr:hover td {
+      background: #faf5ff;
+    }
+  /* Strict Flat Theme for AC-8 */
+  header, button, input, select, .board-card, .block-card, .btn-unit-unstack, 
+  .tier-row, .col-box, .col-header-box, .slot-box, .slot-container, .tray-area,
+  .new-item-tab-bar, .sync-status, .shelf-unified-toolbar, .controls-panel,
+  .rack-tier, .rack-col, .shelf-board, .slot-card {
+    background-image: none !important;
+  }
+  header { background: var(--pt-surface) !important; border-radius: var(--pt-radius) !important; }
+  .board-card, .block-card, .shelf-board { border-radius: var(--pt-radius) !important; }
+  button, .btn-tier-add-col, .btn-unit-unstack { border-radius: var(--pt-radius-sm) !important; }
+  .col-header-box { background: var(--pt-bg) !important; color: var(--pt-text) !important; border-bottom: 1px solid var(--pt-border) !important; }
+
+  .shelf-unified-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 8px 12px; background: var(--pt-bg); border: 1px solid var(--pt-border); border-radius: var(--pt-radius); margin-top: 8px; width: 100%; }
+  .toolbar-group { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .toolbar-group .add-label { font-size: 12px; font-weight: 600; color: var(--pt-text-sub); }
+  .new-item-name { width: 200px; }
+  .sync-status { font-size: 12px; display: flex; align-items: center; gap: 4px; }
+  .sync-dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; display: inline-block; }
+  .sync-dot.sync-indicator-pulse { background: #f59e0b; }
+  .sync-dot.is-error { background: #f87171; }
+  .item-card-actions { display: inline-flex; align-items: center; gap: 2px; margin-left: auto; }
+  .cell-no { text-align: center; font-weight: bold; color: #64748b; }
+  .cell-loc { color: #1e293b; }
+  .cell-name { color: #0f172a; }
+  .detail-close { font-size: 1.1rem; width: 24px; height: 24px; }
+  .btn-detail-delete { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+  .form-group label .form-control { margin-top: 4px; }
+}
+@keyframes wh-pulseHighlight {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.05); }
+    }
+body.room-page.auth-pending > *:not(#subapp-auth-gate) {
+      display: none !important;
+    }

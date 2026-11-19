@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#0F766E" />
+  <link rel="stylesheet" href="css/popup-theme.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <link rel="stylesheet" href="css/mobile.css">
+  <link rel="stylesheet" href="css/batches.css">
+  <title>공정 모니터링 평면도</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0/dist/umd/supabase.js" integrity="sha384-uteMfOloLDGt042uDz+xHGF3ym63/WQ6rFq7murQRG8Ih7QrXGEGNtWd8688sb4O" crossorigin="anonymous"></script>
+  <script type="module" src="/src/main/main.ts"></script>
+  <script>
+    // QA 러너용 가짜 날짜·로그인 건너뛰기는 내 PC 주소에서만. 운영 주소에 ?qa=true를 붙여도 무시한다
+    window.QA_MODE = ['localhost', '127.0.0.1', '[::1]'].includes(location.hostname) && location.search.includes('qa=true');
+    if (window.QA_MODE && !Date.isFake) {
+      const _RealDate = window.Date;
+      const _qaAnchor = new _RealDate('2026-10-23T13:19:00Z').getTime();
+      const _startReal = _RealDate.now();
+      class _QaDate extends _RealDate {
+        constructor(...args) {
+          if (args.length === 0) super(_qaAnchor + (_RealDate.now() - _startReal));
+          else super(...args);
+        }
+        static now() {
+          return _qaAnchor + (_RealDate.now() - _startReal);
+        }
+      }
+      window.Date = _QaDate;
+    }
+  </script>
+  <link rel="stylesheet" href="css/main.css">
+  <!-- 선반·창고 화면: :where()로 범위를 묶어 우선순위가 낮으므로 main.css 뒤에 -->
+  <link rel="stylesheet" href="css/shelf.css">
+  <link rel="stylesheet" href="css/warehouse.css">
+</head>
+<body class="auth-pending">
+  <!-- 시작 화면 (데이터를 불러오기 전 가림막. 실제 권한은 DB가 검사한다) -->
+  <div id="start-gate" class="start-gate">
+    <div class="start-gate-card">
+      <div class="start-gate-spinner"></div>
+      <h2 class="start-gate-title">불러오는 중</h2>
+    </div>
+  </div>
+
+  <div id="dashboard-container" class="dashboard-container">
+    <!-- 1. Header Bar -->
+    <header id="dashboard-header">
+      <div class="header-left">
+        <div class="header-title-wrap">
+          <span class="dashboard-title">공정 모니터링</span>
+          <div class="live-status-pill">
+            <span class="live-dot"></span>
+            <span>실시간 연동 중</span>
+          </div>
+        </div>
+        <span id="dashboard-clock" class="clock-display">--:--:--</span>
+      </div>
+
+      <div class="header-center">
+        <!-- 로트 검색칸은 src/main/Board.tsx -->
+        <div class="lot-search-box"></div>
+      </div>
+
+      <div class="header-right">
+        <!-- 배치 생성 버튼 (강조 버튼) -->
+        <button type="button" id="btn-batch-modal-trigger" class="batch-add-btn" title="신규 배치 추가 및 공정 스케줄러 열기">
+          <span>배치 생성</span>
+        </button>
+        <!-- 일일 투두리스트 모달 트리거 -->
+        <button type="button" id="btn-daily-todo" class="header-btn" title="작업자별 1일 투두리스트 확인 및 일정 반영">
+          <span>일일 투두</span>
+        </button>
+        <!-- 공정 담당자 배정 모달 트리거 -->
+        <button type="button" id="btn-pm-modal-trigger" class="header-btn" title="공정 담당자 배정 설정">
+          <span>공정 담당자</span>
+        </button>
+        <!-- 직원 관리 (관리자만 보임) -->
+        <button type="button" id="btn-worker-admin-trigger" class="header-btn" title="입사 등록·퇴사 처리" style="display: none;">
+          <span>직원 관리</span>
+        </button>
+        <!-- 사용 설명서 버튼 -->
+        <button type="button" id="btn-user-guide" class="header-btn" title="사용 가이드 확인">
+          <span>가이드</span>
+        </button>
+        <!-- 로그인 접속자 정보 배지 (맨 오른쪽) -->
+        <!-- 작업 알림 설정 버튼 (SPEC F-16) -->
+        <button type="button" id="btn-push-settings" class="header-btn header-btn--push" title="작업 알림 설정">
+          <span>🔔</span>
+        </button>
+        <!-- 로그인 접속자 정보 배지 (맨 오른쪽) -->
+        <div id="user-info-badge" class="user-info-badge" title="클릭하여 작업자 변경" role="button" tabindex="0">
+          <span class="user-label">작업자:</span>
+          <span id="current-user-display" class="user-email">미설정</span>
+          <span class="user-change-btn">변경</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 요약 띠, 평면도/타임라인 탭, 오른쪽 패널, 배치 툴팁: src/main/Board.tsx -->
+    <div id="main-board" style="display: contents;"></div>
+  </div>
+
+  <!-- 부품 보관실 선반 관리 시스템 모달 팝업 -->
+  <dialog id="toolroom-shelf-modal" class="pt-dialog pt-dialog--full shelf-modal" closedby="any" aria-labelledby="shelf-modal-title">
+    <header class="pt-head">
+      <div class="pt-head__title-group">
+        <h2 id="shelf-modal-title" class="pt-head__title">🔧 부품 보관실 선반 보관 배치 현황</h2>
+        <span class="pt-head__sub">실시간 선반 배치 및 보관 현황 관리</span>
+      </div>
+      <div class="pt-head__actions">
+        <button type="button" class="pt-icon-btn modal-action-btn" id="modal-btn-external" title="새 탭에서 열기" aria-label="새 탭에서 열기">↗</button>
+        <button type="button" class="pt-icon-btn modal-action-btn" id="modal-btn-maximize" title="전체화면 토글" aria-label="전체화면 토글">⛶</button>
+        <button type="button" class="pt-icon-btn modal-close-btn" id="modal-btn-close" title="닫기 (Esc)" aria-label="닫기">×</button>
+      </div>
+    </header>
+    <div class="pt-body room-dialog-body"><div class="room-root"></div></div>
+  </dialog>
+
+  <!-- 생산 배치현황 및 공정 스케줄러 모달 팝업 -->
+  <dialog id="batch-schedule-modal" class="pt-dialog pt-dialog--full shelf-modal batch-modal" closedby="any" aria-labelledby="batch-modal-title">
+    <header class="pt-head">
+      <div class="pt-head__title-group">
+        <h2 id="batch-modal-title" class="pt-head__title">📋 생산 배치 현황 및 공정 스케줄러</h2>
+        <span class="pt-head__sub">로트별 공정(공정1~공정5) 일정 관리 및 자동 계산 시스템</span>
+      </div>
+      <div class="pt-head__actions">
+        <button type="button" class="pt-icon-btn modal-action-btn" id="batch-modal-btn-external" title="새 탭에서 열기" aria-label="새 탭에서 열기">↗</button>
+        <button type="button" class="pt-icon-btn modal-action-btn" id="batch-modal-btn-maximize" title="전체화면 토글" aria-label="전체화면 토글">⛶</button>
+        <button type="button" class="pt-icon-btn modal-close-btn" id="batch-modal-btn-close" title="닫기 (Esc)" aria-label="닫기">×</button>
+      </div>
+    </header>
+    <div class="pt-body" style="padding: 0; display: flex; flex-direction: column; flex: 1; height: calc(100% - 52px); overflow: hidden;">
+      <!-- 내용은 src/batches/BatchDialog.tsx (새 창 sub_batches와 같은 화면) -->
+      <div id="batch-form-root" style="flex: 1; overflow: auto;"></div>
+    </div>
+  </dialog>
+
+  <!-- 완제품 창고 입고 목록 모달 팝업 -->
+  <!-- 내용은 src/warehouse/ArchiveModal.tsx -->
+  <dialog id="finished-warehouse-modal" class="pt-dialog pt-dialog--l shelf-modal finished-wh-modal" closedby="any" aria-labelledby="finished-wh-modal-title"></dialog>
+
+  <!-- 비품실 관리 시스템 모달 팝업 -->
+  <dialog id="supplies-modal" class="pt-dialog pt-dialog--full shelf-modal supplies-modal" closedby="any" aria-labelledby="supplies-modal-title">
+    <header class="pt-head">
+      <div class="pt-head__title-group">
+        <h2 id="supplies-modal-title" class="pt-head__title">📦 비품실 선반 보관 배치 현황</h2>
+        <span class="pt-head__sub">실시간 비품 및 자재 보관 현황 관리</span>
+      </div>
+      <div class="pt-head__actions">
+        <button type="button" class="pt-icon-btn modal-action-btn" id="supplies-modal-btn-external" title="새 탭에서 열기" aria-label="새 탭에서 열기">↗</button>
+        <button type="button" class="pt-icon-btn modal-action-btn" id="supplies-modal-btn-maximize" title="전체화면 토글" aria-label="전체화면 토글">⛶</button>
+        <button type="button" class="pt-icon-btn modal-close-btn" id="supplies-modal-btn-close" title="닫기 (Esc)" aria-label="닫기">×</button>
+      </div>
+    </header>
+    <div class="pt-body room-dialog-body"><div class="room-root"></div></div>
+  </dialog>
+
+  <!-- 포장 비품실 관리 시스템 모달 팝업 -->
+  <dialog id="pack-supplies-modal" class="pt-dialog pt-dialog--full shelf-modal pack-supplies-modal" closedby="any" aria-labelledby="pack-supplies-modal-title">
+    <header class="pt-head">
+      <div class="pt-head__title-group">
+        <h2 id="pack-supplies-modal-title" class="pt-head__title">📦 포장 비품실 선반 보관 배치 현황</h2>
+        <span class="pt-head__sub">실시간 포장 비품 및 자재 보관 현황 관리</span>
+      </div>
+      <div class="pt-head__actions">
+        <button type="button" class="pt-icon-btn modal-action-btn" id="pack-supplies-modal-btn-external" title="새 탭에서 열기" aria-label="새 탭에서 열기">↗</button>
+        <button type="button" class="pt-icon-btn modal-action-btn" id="pack-supplies-modal-btn-maximize" title="전체화면 토글" aria-label="전체화면 토글">⛶</button>
+        <button type="button" class="pt-icon-btn modal-close-btn" id="pack-supplies-modal-btn-close" title="닫기 (Esc)" aria-label="닫기">×</button>
+      </div>
+    </header>
+    <div class="pt-body room-dialog-body"><div class="room-root"></div></div>
+  </dialog>
+
+  <!-- 자재 창고 관리 시스템 모달 팝업 -->
+  <dialog id="warehouse-modal" class="pt-dialog pt-dialog--full shelf-modal warehouse-modal" closedby="any" aria-labelledby="warehouse-modal-title">
+    <header class="pt-head">
+      <div class="pt-head__title-group">
+        <h2 id="warehouse-modal-title" class="pt-head__title">🏢 자재 창고 선반 보관 배치 현황</h2>
+        <span class="pt-head__sub">실시간 자재 창고 선반 적재 및 보관 현황 관리</span>
+      </div>
+      <div class="pt-head__actions">
+        <button type="button" class="pt-icon-btn modal-action-btn" id="warehouse-modal-btn-external" title="새 탭에서 열기" aria-label="새 탭에서 열기">↗</button>
+        <button type="button" class="pt-icon-btn modal-action-btn" id="warehouse-modal-btn-maximize" title="전체화면 토글" aria-label="전체화면 토글">⛶</button>
+        <button type="button" class="pt-icon-btn modal-close-btn" id="warehouse-modal-btn-close" title="닫기 (Esc)" aria-label="닫기">×</button>
+      </div>
+    </header>
+    <div class="pt-body room-dialog-body"><div class="room-root"></div></div>
+  </dialog>
+ 
+  <!-- 공정 모니터링 평면도 - 시스템 사용 설명서 모달 팝업 -->
+  <dialog id="user-guide-modal" class="pt-dialog pt-dialog--l shelf-modal guide-modal" closedby="any" aria-labelledby="guide-modal-title">
+    <header class="pt-head">
+      <div class="pt-head__title-group">
+        <h2 id="guide-modal-title" class="pt-head__title">📖 평면도 모니터링 시스템 사용 설명서</h2>
+        <span class="pt-head__sub">실시간 공정 모니터링 및 각 구역별 연동 기능 안내</span>
+      </div>
+      <div class="pt-head__actions">
+        <button type="button" class="pt-icon-btn modal-action-btn" id="guide-modal-btn-maximize" title="전체화면 토글" aria-label="전체화면 토글">⛶</button>
+        <button type="button" class="pt-icon-btn modal-close-btn" id="guide-modal-btn-close" title="닫기 (Esc)" aria-label="닫기">×</button>
+      </div>
+    </header>
+
+    <div class="pt-body" style="padding: 16px; display: flex; flex-direction: column; gap: 14px; max-height: 70vh;">
+      <!-- 정보 띠 -->
+      <div class="pt-info-banner">
+        <strong>처음이라면:</strong> 오른쪽 위 [작업자] 배지에서 로그인한 뒤 사용하세요. 로그인해야 본인 할 일이 보이고, 저장·이동 기록에 이름이 남습니다.
+      </div>
+
+      <!-- 2열 카드 격자 -->
+      <div class="guide-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: stretch;">
+        <div class="guide-card" style="background:#ffffff; border:1px solid var(--pt-border); border-radius:var(--pt-radius); padding:14px; display:flex; flex-direction:column; box-sizing:border-box;">
+          <h3 style="font-size:14px; font-weight:700; margin:0 0 8px 0; color:var(--pt-text); display:flex; align-items:center; gap:6px;">👤 로그인</h3>
+          <ul style="font-size:12px; line-height:1.6; color:var(--pt-text-sub); margin:0; padding-left:16px;">
+            <li><strong>로그인:</strong> 오른쪽 위 [작업자] 배지를 눌러 관리자가 등록한 이메일과 비밀번호를 입력합니다.</li>
+            <li><strong>로그아웃:</strong> 배지를 다시 눌러 로그아웃합니다.</li>
+            <li><strong>기록:</strong> 로그인 후 하는 저장·이동은 작업자 이름과 함께 기록되고, 화면에 작업자 이름이 옅게 표시됩니다.</li>
+          </ul>
+        </div>
+
+        <div class="guide-card" style="background:#ffffff; border:1px solid var(--pt-border); border-radius:var(--pt-radius); padding:14px; display:flex; flex-direction:column; box-sizing:border-box;">
+          <h3 style="font-size:14px; font-weight:700; margin:0 0 8px 0; color:var(--pt-text); display:flex; align-items:center; gap:6px;">📍 평면도와 배치 조작</h3>
+          <ul style="font-size:12px; line-height:1.6; color:var(--pt-text-sub); margin:0; padding-left:16px;">
+            <li><strong>요약 띠:</strong> 진행 중 · 48시간 내 종료 · 대기 · 보관 중 · 내 오늘 할 일 수를 한눈에 봅니다.</li>
+            <li><strong>배치 아이콘:</strong> 한 번 누르면 오른쪽 [선택한 배치]에 상세가, 두 번 누르면 일정 편집 창이 열립니다.</li>
+            <li><strong>구역 이동:</strong> 아이콘을 끌어 다른 공정실로 옮깁니다. 진행 구역은 아이콘 아래 얇은 막대로 진행률을 보여 줍니다.</li>
+            <li><strong>로트 검색:</strong> 위쪽 검색칸(Ctrl+K)에 로트 번호를 넣으면 해당 배치를 찾아 줍니다.</li>
+          </ul>
+        </div>
+
+        <div class="guide-card" style="background:#ffffff; border:1px solid var(--pt-border); border-radius:var(--pt-radius); padding:14px; display:flex; flex-direction:column; box-sizing:border-box;">
+          <h3 style="font-size:14px; font-weight:700; margin:0 0 8px 0; color:var(--pt-text); display:flex; align-items:center; gap:6px;">📋 배치 생성과 일정</h3>
+          <ul style="font-size:12px; line-height:1.6; color:var(--pt-text-sub); margin:0; padding-left:16px;">
+            <li><strong>배치 생성:</strong> 위쪽 [배치 생성]에서 로트와 공정1~공정5 공정 일정을 입력하면 단계별 시각이 자동 계산됩니다.</li>
+            <li><strong>템플릿:</strong> 자주 쓰는 일정은 [템플릿 저장]·[템플릿 불러오기]로 재사용합니다.</li>
+            <li><strong>타임라인:</strong> [타임라인] 탭에서 배치별 공정 일정을 시간 막대로 봅니다.</li>
+            <li><strong>다가오는 일정:</strong> 오른쪽 패널에 72시간 안에 예정된 공정이 표시됩니다.</li>
+          </ul>
+        </div>
+
+        <div class="guide-card" style="background:#ffffff; border:1px solid var(--pt-border); border-radius:var(--pt-radius); padding:14px; display:flex; flex-direction:column; box-sizing:border-box;">
+          <h3 style="font-size:14px; font-weight:700; margin:0 0 8px 0; color:var(--pt-text); display:flex; align-items:center; gap:6px;">🏢 기타 구역 · 창고 · 장비</h3>
+          <ul style="font-size:12px; line-height:1.6; color:var(--pt-text-sub); margin:0; padding-left:16px;">
+            <li><strong>기타 구역:</strong> 오른쪽 [부품 보관실]·[포장실 비품실]·[비품실]·[자재 창고]에서 선반 적재·보관 위치를 관리합니다.</li>
+            <li><strong>완제품 창고:</strong> 포장이 끝난 배치가 보관됩니다. 잘못 넣었으면 [꺼내오기]로 평면도에 되돌립니다.</li>
+            <li><strong>장비:</strong> 오른쪽 장비 카드에서 가동 예약을 등록·수정합니다. 다른 예약과 시간이 겹치면 저장되지 않습니다. 품목·소요 시간·시작/종료 알림 받을 사람은 [템플릿 관리] 탭에서 정합니다(PC).</li>
+          </ul>
+        </div>
+
+        <div class="guide-card" style="background:#ffffff; border:1px solid var(--pt-border); border-radius:var(--pt-radius); padding:14px; display:flex; flex-direction:column; box-sizing:border-box;">
+          <h3 style="font-size:14px; font-weight:700; margin:0 0 8px 0; color:var(--pt-text); display:flex; align-items:center; gap:6px;">👥 공정 담당자</h3>
+          <ul style="font-size:12px; line-height:1.6; color:var(--pt-text-sub); margin:0; padding-left:16px;">
+            <li><strong>담당자 편성:</strong> 위쪽 [공정 담당자]에서 공정별 당일 담당자를 적고 [저장]하면 평면도에 바로 반영됩니다.</li>
+            <li><strong>여러 명:</strong> 한 칸에 여러 명은 쉼표로 적습니다 (예: 홍길동, 김철수). 적힌 사람 모두 그 칸의 할 일과 알림을 받습니다.</li>
+          </ul>
+        </div>
+
+        <div class="guide-card" style="background:#ffffff; border:1px solid var(--pt-border); border-radius:var(--pt-radius); padding:14px; display:flex; flex-direction:column; box-sizing:border-box;">
+          <h3 style="font-size:14px; font-weight:700; margin:0 0 8px 0; color:var(--pt-text); display:flex; align-items:center; gap:6px;">🗓️ 일일 투두</h3>
+          <ul style="font-size:12px; line-height:1.6; color:var(--pt-text-sub); margin:0; padding-left:16px;">
+            <li><strong>보는 범위:</strong> 사원·주임은 본인 할 일만, 대리 이상과 관리자는 전체 할 일과 담당자 필터를 봅니다.</li>
+            <li><strong>근무시간:</strong> 평일 09:00~18:00 안에서만 배정되고, 주말·공휴일에는 할 일이 없습니다.</li>
+            <li><strong>일정 반영:</strong> 배치를 새로 등록하거나 일정을 바꿨으면 [일정 반영]을 눌러 할 일을 다시 만듭니다.</li>
+            <li><strong>규칙 관리:</strong> 대리 이상은 [⚙️ 규칙 관리]에서 할 일이 생기는 규칙을 고칠 수 있습니다.</li>
+          </ul>
+        </div>
+
+        <div class="guide-card" style="background:#ffffff; border:1px solid var(--pt-border); border-radius:var(--pt-radius); padding:14px; display:flex; flex-direction:column; box-sizing:border-box;">
+          <h3 style="font-size:14px; font-weight:700; margin:0 0 8px 0; color:var(--pt-text); display:flex; align-items:center; gap:6px;">📱 휴대폰과 작업 알림</h3>
+          <ul style="font-size:12px; line-height:1.6; color:var(--pt-text-sub); margin:0; padding-left:16px;">
+            <li><strong>휴대폰으로 열기:</strong> 같은 주소를 휴대폰에서 열면 배치 · 할 일 · 장비 · 더보기 탭으로 된 모바일 화면이 나옵니다.</li>
+            <li><strong>작업 알림:</strong> PC는 위쪽 🔔, 휴대폰은 [더보기 → 작업 알림 설정]에서 켜면 할 일 5분 전에 알림이 옵니다.</li>
+            <li><strong>아이폰:</strong> 홈 화면에 추가한 뒤 그 아이콘으로 열어야 알림을 켤 수 있습니다.</li>
+          </ul>
+        </div>
+
+        <div class="guide-card" style="background:#ffffff; border:1px solid var(--pt-border); border-radius:var(--pt-radius); padding:14px; display:flex; flex-direction:column; box-sizing:border-box;">
+          <h3 style="font-size:14px; font-weight:700; margin:0 0 8px 0; color:var(--pt-text); display:flex; align-items:center; gap:6px;">🛠 직원 관리 (관리자만)</h3>
+          <ul style="font-size:12px; line-height:1.6; color:var(--pt-text-sub); margin:0; padding-left:16px;">
+            <li><strong>직원 관리:</strong> 관리자에게만 보이는 위쪽 [직원 관리]에서 직원 등록과 삭제를 합니다. 관리자 지정·해제는 1차 관리자만 할 수 있습니다.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <footer class="pt-foot">
+      <span style="font-size:12px; color:var(--pt-muted);">Esc 키를 누르거나 닫기를 클릭하면 창이 닫힙니다.</span>
+      <button type="button" class="pt-btn pt-btn--secondary" id="guide-modal-btn-close-foot" onclick="document.getElementById('user-guide-modal').close()">닫기</button>
+    </footer>
+  </dialog>
+
+  <!-- 작업자 로그인 창 -->
+  <dialog id="operator-auth-modal" class="pt-dialog pt-dialog--s operator-dialog" aria-labelledby="operator-auth-title">
+    <div class="pt-head">
+      <div class="pt-head__title-group">
+        <h3 id="operator-auth-title" class="pt-head__title">🔑 작업자 로그인</h3>
+      </div>
+      <button id="btn-close-auth-modal" class="pt-icon-btn btn-dialog-close" type="button" aria-label="닫기" style="display: none;">×</button>
+    </div>
+    <div class="pt-body" style="background: #ffffff; display: flex; flex-direction: column; gap: 14px;">
+      <p class="operator-dialog-desc" style="font-size: 13px; line-height: 1.5; color: var(--pt-muted); margin: 0;">
+        관리자가 등록한 이메일과 비밀번호로 로그인해 주세요.
+      </p>
+
+      <div class="operator-input-group" style="display: flex; flex-direction: column; gap: 6px;">
+        <label for="operator-email-input" class="operator-label" style="font-size: 12px; font-weight: 700; color: var(--pt-text);">이메일</label>
+        <input type="email" id="operator-email-input" class="pt-input operator-input" autocomplete="username" style="width: 100%; height: 38px; font-size: 14px;" />
+        <label for="operator-password-input" class="operator-label" style="font-size: 12px; font-weight: 700; color: var(--pt-text);">비밀번호</label>
+        <input type="password" id="operator-password-input" class="pt-input operator-input" autocomplete="current-password" style="width: 100%; height: 38px; font-size: 14px;" />
+      </div>
+
+      <div id="auth-error-msg" class="auth-error-banner" style="display: none; background: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 8px 12px; color: #dc2626; font-size: 12px;">
+        <span class="auth-error-icon">⚠️</span>
+        <span id="auth-error-text" class="auth-error-text">로그인하지 못했습니다.</span>
+      </div>
+
+      <div id="auth-loading-indicator" class="auth-loading-box" style="display: none; text-align: center; color: var(--pt-muted); font-size: 12px; padding: 8px;">
+        <span class="auth-spinner"></span>
+        <span class="auth-loading-text">로그인하는 중입니다...</span>
+      </div>
+    </div>
+    <div class="pt-foot">
+      <span class="auth-footer-help" style="font-size: 11px; color: var(--pt-muted);">계정 문의는 관리자에게</span>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <button id="btn-cancel-auth" class="pt-btn pt-btn--secondary" type="button" style="display: none;">취소</button>
+        <button id="btn-logout-auth" class="pt-btn pt-btn--danger" type="button" style="display: none;">로그아웃</button>
+        <button id="btn-verify-code" class="pt-btn pt-btn--primary" type="button">로그인</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- 공정 담당자 편성 및 관리 모달 -->
+  <!-- 내용은 src/pm/PmModal.tsx -->
+  <dialog id="process-managers-modal" class="pt-dialog pt-dialog--m shelf-modal" closedby="any" aria-labelledby="pm-modal-title"></dialog>
+
+  <dialog id="worker-admin-modal" class="pt-dialog pt-dialog--m" closedby="any" aria-labelledby="wa-title">
+    <header class="pt-head">
+      <div class="pt-head__title-group">
+        <h2 id="wa-title" class="pt-head__title">직원 관리</h2>
+        <span class="pt-head__sub">직원 등록 · 삭제 · 관리자 지정(1차 관리자만). 로그인 계정은 Supabase 대시보드에서 같은 이메일로 만든다</span>
+      </div>
+      <button type="button" class="pt-icon-btn btn-dialog-close" data-wa-close aria-label="닫기">×</button>
+    </header>
+    <!-- 내용은 src/admin/WorkerAdmin.tsx -->
+    <div class="pt-body" style="padding: 12px; overflow-y: auto;"></div>
+  </dialog>
+
+  <!-- 작업 알림 설정 모달 (SPEC F-16) -->
+  <dialog id="push-settings-modal" class="pt-dialog pt-dialog--s shelf-modal" closedby="any" aria-labelledby="push-settings-modal-title">
+    <header class="pt-head">
+      <div class="pt-head__title-group">
+        <h2 id="push-settings-modal-title" class="pt-head__title">🔔 작업 알림 설정</h2>
+        <span class="pt-head__sub">작업 시작 5분 전 모바일 웹 푸시 알림</span>
+      </div>
+      <button type="button" class="pt-icon-btn btn-dialog-close" id="btn-push-modal-close" aria-label="닫기">×</button>
+    </header>
+    <div class="pt-body" style="padding: 16px; display: flex; flex-direction: column; gap: 14px;">
+      <!-- 상태 카드 -->
+      <div id="push-status-card" class="push-status-box" style="background: #f8fafc; border: 1px solid var(--pt-border); border-radius: 8px; padding: 12px 14px; display: flex; align-items: center; gap: 10px;">
+        <span id="push-status-badge" class="push-status-badge" style="display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; background: #e2e8f0; color: #475569;">확인 중</span>
+        <div id="push-status-text" class="push-status-text" style="font-size: 13px; font-weight: 600; color: #1e293b; flex: 1;">상태를 확인하고 있습니다...</div>
+      </div>
+      <!-- 아이폰 3단계 안내 (아이폰 홈화면 앱 아닐 때 노출) -->
+      <div id="push-ios-guide" style="display:none; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px; padding: 10px 12px; font-size: 12px; color: #1e40af; line-height: 1.5;">
+        <strong>📱 아이폰은 먼저 앱으로 설치해야 알림을 켤 수 있어요</strong>
+        <ol style="margin: 6px 0 0 16px; padding: 0;">
+          <li><b>사파리</b>로 이 화면을 엽니다. (카톡·네이버·크롬 안에서 열었다면 사파리로 다시 열기)</li>
+          <li>주소창 옆 <b>⋯</b>(점 3개) → <b>공유</b>를 누릅니다. 화면 아래에 공유 버튼(□↑)이 바로 보이면 그걸 눌러도 됩니다.</li>
+          <li>메뉴 목록을 아래로 내려 <b>홈 화면에 추가</b>를 누릅니다. 안 보이면 목록 맨 아래 <b>동작 편집</b>에서 추가합니다.</li>
+          <li><b>웹 앱으로 열기</b>가 켜져 있으면 그대로 두고, 오른쪽 위 <b>추가</b>를 누릅니다.</li>
+          <li>사파리는 닫고, 홈 화면에 생긴 <b>공정모니터링</b> 아이콘으로 엽니다.</li>
+          <li>아래 <b>더보기</b> 탭 → <b>작업자 인증</b>을 먼저 하고 → <b>🔔 작업 알림 설정</b> → <b>알림 켜기</b> → 뜨는 창에서 <b>허용</b>.</li>
+          <li><b>테스트 알림 보내기</b>를 눌러 알림이 오면 끝.</li>
+        </ol>
+      </div>
+      <!-- 버튼 영역: 알림 켜기(주), 알림 끄기(위험), 테스트 알림 보내기(보조) -->
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button type="button" class="pt-btn pt-btn--primary" id="btn-push-enable">알림 켜기</button>
+        <button type="button" class="pt-btn pt-btn--danger" id="btn-push-disable" style="background:#dc2626; color:#ffffff;">알림 끄기</button>
+        <button type="button" class="pt-btn pt-btn--secondary" id="btn-push-test">테스트 알림 보내기</button>
+      </div>
+      <div id="push-action-msg" role="status" aria-live="polite" style="font-size: 13px; font-weight: 600; color: #1e293b; line-height: 1.45; min-height: 19px;"></div>
+      <!-- 안내 문구 -->
+      <div id="push-info-notes" style="font-size: 11.5px; color: var(--pt-muted); line-height: 1.5; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px 10px;">
+        <div>• 한 번 켜 두면 이 기기로 알림이 옵니다. 폰·브라우저를 바꾸면 다시 켜 주세요.</div>
+        <div style="margin-top: 4px;">• 브라우저 기록을 지울 때 <b>쿠키 및 사이트 데이터</b>까지 지우면 알림이 꺼집니다. 다시 인증하면 자동으로 켜지고, 안 켜지면 여기서 다시 켜 주세요.</div>
+        <div id="push-android-note" style="display:none; margin-top: 4px;">• 화면이 꺼져 있을 때 알림이 늦지 않게: 설정 → 애플리케이션 → <b>Chrome</b>(삼성 인터넷으로 설치했다면 삼성 인터넷) → 배터리 → <b>제한 없음</b>. 설정 → 배터리 → 백그라운드 사용 제한 → 절전 앱 목록에 있으면 빼기.</div>
+        <details id="push-ios-note" style="display:none; margin-top: 4px;">
+          <summary style="cursor: pointer; font-weight: 600; color: var(--pt-text);">• 화면이 꺼져 있어도 제때 울리게 (아이폰, 처음 한 번)</summary>
+          <ol style="margin: 4px 0 0 16px; padding: 0;">
+            <li>아이폰 <b>설정</b> 앱 → <b>알림</b> → <b>알림 스타일</b> 아래 목록에서 <b>공정모니터링</b>을 누릅니다.</li>
+            <li><b>알림 허용</b>을 켭니다. (목록에 없거나 켜지지 않으면 앱 아이콘을 지우고 다시 설치한 뒤 알림 켜기 → 허용)</li>
+            <li><b>알림</b> 아래 세 가지(<b>잠금 화면 · 알림 센터 · 배너</b>)를 모두 눌러 체크합니다. <b>잠금 화면</b>이 빠지면 화면이 꺼져 있을 때 안 보입니다. 아래 <b>배너 스타일</b>은 <b>지속적</b>으로 두면 폰을 쓰는 중에 뜬 알림이 직접 닫을 때까지 남아 있어 놓치지 않습니다.</li>
+            <li><b>사운드</b>를 켜 둡니다. 알림 진동은 사운드와 짝으로 울려서, 사운드를 끄면 진동도 안 옵니다. 진동만 원하면 사운드는 켜 두고 폰을 무음 모드로 쓰세요.</li>
+            <li><b>알림 전달</b> 항목이 보이면 <b>즉시 전달</b>을 고릅니다. ('시간 지정 요약'을 쓰는 폰에만 보이며, 요약에 넣으면 정해진 시각에 몰아서 옵니다)</li>
+            <li><b>집중 모드</b>(방해금지 모드·수면·업무 등)를 쓰면 그동안 알림이 막힙니다. 설정 → <b>집중 모드</b> → 쓰는 모드 → <b>앱</b> → <b>다음 알림 허용</b> → <b>+</b> → <b>공정모니터링</b>. 쓰는 모드마다 해 줍니다.</li>
+            <li>설정을 마치면 앱에서 <b>테스트 알림 보내기</b> → 바로 화면을 끄고 잠금 화면에 알림이 뜨는지 확인합니다.</li>
+          </ol>
+        </details>
+      </div>
+    </div>
+    <footer class="pt-foot">
+      <button type="button" class="pt-btn pt-btn--secondary" id="btn-push-modal-cancel">닫기</button>
+    </footer>
+  </dialog>
+
+  <!-- 장비 작업 예약 및 모니터링 모달 -->
+  <!-- 내용은 src/equipment/EqModal.tsx -->
+  <dialog id="equipment-modal" class="pt-dialog pt-dialog--m shelf-modal" closedby="any" aria-labelledby="ac-modal-title"></dialog>
+
+  <!-- 일일 투두리스트 모달 -->
+  <!-- 내용은 src/todo/TodoModal.tsx -->
+  <dialog id="daily-todo-modal" class="pt-dialog pt-dialog--l shelf-modal todo-dialog" closedby="any" aria-labelledby="todo-modal-title"></dialog>
+
+  <!-- 일일 투두 규칙 관리 모달 -->
+  <!-- 내용은 src/todo/RulesModal.tsx -->
+  <dialog id="todo-rules-modal" class="pt-dialog pt-dialog--l shelf-modal todo-dialog todo-rules-dialog" closedby="any" aria-labelledby="todo-rules-modal-title"></dialog>
+
+<div id="m-app" hidden></div>
+<div id="user-watermark" aria-hidden="true"></div>
+<!-- AI 입력 기능(지우려면 README "AI 입력 기능 빼기" 참고) -->
+<script src="js/ai_input/core.js"></script>
+<script src="js/ai_input/ui.js"></script>
+</body>
+</html>

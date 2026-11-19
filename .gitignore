@@ -1,0 +1,9 @@
+# 테스트 기록과 임시 파일
+*.log
+*.mp4
+*.bak*
+__pycache__/
+.env
+.env.*
+node_modules/
+dist/

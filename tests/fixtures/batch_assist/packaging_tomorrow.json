@@ -1,0 +1,12 @@
+{
+  "report": "PA-2 공정4 인계 실수량 480\n내일 PA-2 포장 진행합니다",
+  "changes": [
+    { "op": "net", "lot": "PA-2", "step": "D", "qty": 480, "quote": "PA-2 공정4 인계 실수량 480" },
+    { "op": "start", "lot": "PA-2", "step": "packaging", "at": "2026-11-10", "quote": "내일 PA-2 포장 진행합니다" }
+  ],
+  "expectedLines": [
+    { "id": "PA-2|net|D", "label": "공정4 인계 실수량", "before": "차감 0 · 남은 490", "after": "차감 10 · 남은 480", "on": true },
+    { "id": "PA-2|start|packaging", "label": "포장 시작", "before": "11/11 10:00 ~ 11/11 14:00", "after": "11/10 10:00 ~ 11/10 14:00", "on": true }
+  ],
+  "expectedSkipped": 0
+}
